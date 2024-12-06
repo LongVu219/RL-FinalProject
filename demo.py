@@ -9,21 +9,22 @@ if __name__ == "__main__":
     env.reset()
     vid_dir = "video"
     os.makedirs(vid_dir, exist_ok=True)
-    fps = 35
+    fps = 24
     frames = []
     
 
     # pretrained policies
     frames = []
     env.reset()
-    from base_model import QNetwork
+    import base_model
+    import resnet
     import torch
 
-    q_network = QNetwork(
-        env.observation_space("red_0").shape, env.action_space("red_0").n
+    q_network = resnet.QNetwork(
+        env.observation_space("blue_0").shape, env.action_space("blue_0").n
     )
     q_network.load_state_dict(
-        torch.load("model/red.pt", weights_only=True, map_location="cuda")
+        torch.load("model/agent_1.pth", weights_only=True, map_location="cuda")
     )
     for agent in env.agent_iter():
 
@@ -34,7 +35,7 @@ if __name__ == "__main__":
             action = None  # this agent has died
         else:
             agent_handle = agent.split("_")[0]
-            if agent_handle == "red":
+            if agent_handle == "blue":
                 observation = (
                     torch.Tensor(observation).float().permute([2, 0, 1]).unsqueeze(0)
                 )
@@ -49,10 +50,10 @@ if __name__ == "__main__":
         if agent == "red_0":
             frames.append(env.render())
 
-'''
+
     height, width, _ = frames[0].shape
     out = cv2.VideoWriter(
-        os.path.join(vid_dir, f"pretrained-retest.mp4"),
+        os.path.join(vid_dir, f"battle.mp4"),
         cv2.VideoWriter_fourcc(*"mp4v"),
         fps,
         (width, height),
@@ -61,7 +62,6 @@ if __name__ == "__main__":
         frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         out.write(frame_bgr)
     out.release()
-    print("Done recording pretrained agents")
+    print("Done recording battle !!!")
 
     env.close()
-'''

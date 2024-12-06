@@ -10,8 +10,8 @@ from torch.utils.data import DataLoader, TensorDataset
 
 
 env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
-dead_penalty=-5, attack_penalty=-0.1, attack_opponent_reward=0.3,
-max_cycles=500, extra_features=False, render_mode = "rgb_array")
+dead_penalty=-0.1, attack_penalty=-0.1, attack_opponent_reward=0.5,
+max_cycles=300, extra_features=False, render_mode = "rgb_array")
 num_agent = 160
 env.reset()
 vid_dir = "video"
@@ -29,12 +29,11 @@ import torch
 
 #training hyper params
 device = 'cuda'
-episodes = 100
 
 
 #base model
 base_q_network = base_model.QNetwork(
-    env.observation_space("blue_0").shape, env.action_space("blue_0").n
+    env.observation_space("red_0").shape, env.action_space("red_0").n
 ).to(device)
 base_q_network.load_state_dict(
     torch.load("model/red.pt", weights_only=True, map_location=device)
@@ -42,7 +41,7 @@ base_q_network.load_state_dict(
 
 #current training model
 better_agent = resnet.QNetwork(
-    env.observation_space("red_0").shape, env.action_space("red_0").n
+    env.observation_space("blue_0").shape, env.action_space("blue_0").n
 ).to(device)
 lr = 0.001
 optimizer = optim.Adam(better_agent.parameters(), lr=lr)
@@ -62,7 +61,9 @@ from utils import *
 
 #===================Training Neural Net - put it to another file soon==============================================
 def train_1_epoch(num, dataloader, model, optimizer, lr, loss_fn):
-    print(f'Epoch number {num} Training........................................')
+
+    debug = False
+    if (num%10 == 0): debug = True
     total_loss = 0
     for id, (X, y) in enumerate(dataloader):
         model.train()
@@ -77,16 +78,25 @@ def train_1_epoch(num, dataloader, model, optimizer, lr, loss_fn):
         optimizer.step()
 
         total_loss += loss / len(dataloader)
-        if (id % 5 == 0):
-            print(f'Batch number {id} Loss : {loss}')
-    print(f'Epoch loss : {total_loss}')
+    if (debug == True):
+        print(f'Epoch loss : {total_loss}')
 
 def train_model(num_epoch, dataloader, model, optimzer, lr, loss_fn):
     for epoch in range(1, num_epoch + 1):
         train_1_epoch(epoch, dataloader, model, optimzer, lr, loss_fn)
 #===============================================================================================================
 
+
+
+#==================================Training for 100 episodes============================================================
+from evaluate_fight import *
+
+best_score = 100
+episodes = 500
 for episode in range (1, episodes + 1):
+
+    print(f'Episode number {episode} running...................................')
+
     #gathering training data
     env.reset()
     X, y = [], []
@@ -101,23 +111,19 @@ for episode in range (1, episodes + 1):
         else:
             agent_handle = agent.split("_")[0]
             if agent_handle == "red":
-                action = get_action(env, agent, observation, better_agent, 'epsilon')
+                action = get_action(env, episode, agent, observation, base_q_network, 'best')
             else:
-                action = get_action(env, agent, observation, base_q_network, 'best')
-        
-        if (id//200 == 1):
-            print(f'Finish iter number {id}')
-            break
+                action = get_action(env, episode, agent, observation, better_agent, 'epsilon')
         
 
         buffer.append((agent, observation, action, reward, termination, truncation, info))
         env.step(action)
 
-    #print(len(buffer))
     for (i, content) in enumerate(buffer):
         agent, observation, action, prv_reward, termination, truncation, info = content
-        
-        if (termination or truncation or i + num_agent >= len(buffer)): 
+
+        agent_handle = agent.split("_")[0]
+        if (termination or truncation or i + num_agent >= len(buffer) or agent_handle == 'red'): 
             continue
         else:
             _1, nxt_observation, nxt_action, reward, nxt_termination, nxt_truncation, nxt_info = buffer[i + num_agent]
@@ -128,17 +134,28 @@ for episode in range (1, episodes + 1):
             #print(nxt_observation.shape, i)
             #input size (batch_size, 5, 13, 13)
             with torch.no_grad():
-                tmp = better_agent(nxt_observation).squeeze(dim = 0)
-                tmp[action] += reward
+                next_max = better_agent(nxt_observation).squeeze(dim = 0).max()
+                tmp = better_agent(observation).squeeze(dim = 0)
+                tmp[action] = reward + next_max
                 X.append(observation.squeeze(dim = 0))
                 y.append(tmp)
     
     X_tensor = torch.stack(X)
     y_tensor = torch.stack(y)
     dataset = TensorDataset(X_tensor, y_tensor)
-    dataloader = DataLoader(dataset, batch_size=20, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=512, shuffle=True)
 
-    train_model(30, dataloader, better_agent, optimizer, lr, loss_function)
+    #Train model with given data
+    train_model(100, dataloader, better_agent, optimizer, lr, loss_function)
 
+    if (episode % 5 == 0):
+        avg = evaluate(red_agent=base_q_network, blue_agent=better_agent, rounds=5, debug = True)
+        if (avg < best_score):
+            torch.save(better_agent.state_dict(), 'model/agent_1.pth')
+            print('Agent saved !')
+            print()
+            best_score = avg
 
+print(best_score)
 env.close()
+#===================================================================================================================

@@ -1,0 +1,220 @@
+Episode number 1 running...................................
+Epoch loss : 0.0064019435085356236
+Epoch loss : 0.005685832351446152
+Epoch loss : 0.0037927336525171995
+Epoch loss : 0.0015799396205693483
+Epoch loss : 0.0011399583891034126
+Epoch loss : 0.0010704179294407368
+Epoch loss : 0.00102886778768152
+Epoch loss : 0.0009969668462872505
+Epoch loss : 0.0009586598607711494
+Epoch loss : 0.000914250616915524
+Episode number 2 running...................................
+Epoch loss : 0.009373737499117851
+Epoch loss : 0.00301748258061707
+Epoch loss : 0.0019322126172482967
+Epoch loss : 0.0012996543664485216
+Epoch loss : 0.0012326516443863511
+Epoch loss : 0.0012391210766509175
+Epoch loss : 0.0012032627128064632
+Epoch loss : 0.0011221579043194652
+Epoch loss : 0.001104512601159513
+Epoch loss : 0.0010557827772572637
+Episode number 3 running...................................
+Epoch loss : 0.005005453713238239
+Epoch loss : 0.0033916018437594175
+Epoch loss : 0.002418427262455225
+Epoch loss : 0.0013383212499320507
+Epoch loss : 0.001172281801700592
+Epoch loss : 0.001136865234002471
+Epoch loss : 0.0010821056785061955
+Epoch loss : 0.0010628198506310582
+Epoch loss : 0.001063331263139844
+Epoch loss : 0.0010461141355335712
+Episode number 4 running...................................
+Epoch loss : 0.005777567159384489
+Epoch loss : 0.005087679717689753
+Epoch loss : 0.0031763301230967045
+Epoch loss : 0.0032854871824383736
+Epoch loss : 0.0024493217933923006
+Epoch loss : 0.0024601840414106846
+Epoch loss : 0.0021440787240862846
+Epoch loss : 0.0020814379677176476
+Epoch loss : 0.002011974574998021
+Epoch loss : 0.00192531559150666
+Episode number 5 running...................................
+Epoch loss : 0.00462705222889781
+Epoch loss : 0.003927050158381462
+Epoch loss : 0.0033827645238488913
+Epoch loss : 0.0028850818052887917
+Epoch loss : 0.002804172458127141
+Epoch loss : 0.0025778396520763636
+Epoch loss : 0.002378864213824272
+Epoch loss : 0.002287028357386589
+Epoch loss : 0.002186656231060624
+Epoch loss : 0.0020557770039886236
+==================Evaluating agent vs agent=========================
+Current balance of power : 8.875, 70, 7
+Current balance of power : 9.25, 73, 7
+Current balance of power : 9.375, 74, 7
+Current balance of power : 7.5, 74, 9
+Current balance of power : 9.5, 75, 7
+Average red vs blue power projection: 8.9
+Agent saved !
+
+Episode number 6 running...................................
+Epoch loss : 0.0056700436398386955
+Epoch loss : 0.0045456294901669025
+Epoch loss : 0.0036752731539309025
+Epoch loss : 0.0034356871619820595
+Epoch loss : 0.0029914488550275564
+Epoch loss : 0.0025384039618074894
+Epoch loss : 0.0024199020117521286
+Epoch loss : 0.0023720853496342897
+Epoch loss : 0.0022894511930644512
+Epoch loss : 0.0022082647774368525
+Episode number 7 running...................................
+Epoch loss : 0.006727357394993305
+Epoch loss : 0.005900598596781492
+Epoch loss : 0.005677574314177036
+Epoch loss : 0.005357999354600906
+Epoch loss : 0.004773023538291454
+Epoch loss : 0.004574488382786512
+Epoch loss : 0.004675494972616434
+Epoch loss : 0.0045898668467998505
+Epoch loss : 0.004420723766088486
+Epoch loss : 0.004378478042781353
+Episode number 8 running...................................
+Epoch loss : 0.005520795471966267
+Epoch loss : 0.004961912054568529
+Epoch loss : 0.004847177769988775
+Epoch loss : 0.004124071449041367
+Epoch loss : 0.003941946197301149
+Epoch loss : 0.003918336238712072
+Epoch loss : 0.00351608800701797
+Epoch loss : 0.004501150455325842
+Epoch loss : 0.003961721435189247
+Epoch loss : 0.003479535924270749
+Episode number 9 running...................................
+Epoch loss : 0.00621486222371459
+Epoch loss : 0.005147647112607956
+Epoch loss : 0.005037163849920034
+Epoch loss : 0.004813157953321934
+Epoch loss : 0.004746647551655769
+Epoch loss : 0.004444384481757879
+Epoch loss : 0.00428488664329052
+Epoch loss : 0.003926517441868782
+Epoch loss : 0.0036240932531654835
+Epoch loss : 0.0038735561538487673
+Episode number 10 running...................................
+Epoch loss : 0.008147850632667542
+Epoch loss : 0.0067953080870211124
+Epoch loss : 0.00557734677568078
+Epoch loss : 0.0050034066662192345
+Epoch loss : 0.004629799164831638
+Epoch loss : 0.004326441325247288
+Epoch loss : 0.004187075886875391
+Epoch loss : 0.0034155556932091713
+Epoch loss : 0.0032718598376959562
+Epoch loss : 0.0032701913733035326
+==================Evaluating agent vs agent=========================
+Current balance of power : 6.166666666666667, 73, 11
+Current balance of power : 6.818181818181818, 74, 10
+Current balance of power : 4.166666666666667, 74, 17
+Current balance of power : 4.8, 71, 14
+Current balance of power : 6.166666666666667, 73, 11
+Average red vs blue power projection: 5.623636363636364
+Agent saved !
+
+Episode number 11 running...................................
+Epoch loss : 0.006823609117418528
+Epoch loss : 0.006493561901152134
+Epoch loss : 0.005849549546837807
+Epoch loss : 0.005729206372052431
+Epoch loss : 0.006189147010445595
+Epoch loss : 0.0061607081443071365
+Epoch loss : 0.004754518158733845
+Epoch loss : 0.005058756098151207
+Epoch loss : 0.005091815255582333
+Epoch loss : 0.005071501713246107
+Episode number 12 running...................................
+Epoch loss : 0.006000050809234381
+Epoch loss : 0.005715885665267706
+Epoch loss : 0.005578239448368549
+Epoch loss : 0.00556325726211071
+Epoch loss : 0.005538322497159243
+Epoch loss : 0.0054850284941494465
+Epoch loss : 0.0051339720375835896
+Epoch loss : 0.004807804245501757
+Epoch loss : 0.004715317860245705
+Epoch loss : 0.00463408837094903
+Episode number 13 running...................................
+Epoch loss : 0.005896592512726784
+Epoch loss : 0.005215637385845184
+Epoch loss : 0.005089387763291597
+Epoch loss : 0.005047053098678589
+Epoch loss : 0.004977646749466658
+Epoch loss : 0.0048936209641397
+Epoch loss : 0.005072322674095631
+Epoch loss : 0.004898110870271921
+Epoch loss : 0.00454631308093667
+Epoch loss : 0.004488641861826181
+Episode number 14 running...................................
+Epoch loss : 0.007548175286501646
+Epoch loss : 0.006518989335745573
+Epoch loss : 0.006671232637017965
+Epoch loss : 0.006859810557216406
+Epoch loss : 0.0067763919942080975
+Epoch loss : 0.0062551237642765045
+Epoch loss : 0.006331630516797304
+Epoch loss : 0.005922864656895399
+Epoch loss : 0.005790972150862217
+Epoch loss : 0.006376976612955332
+Episode number 15 running...................................
+Epoch loss : 0.006746239960193634
+Epoch loss : 0.006335725076496601
+Epoch loss : 0.005775383673608303
+Epoch loss : 0.005600998643785715
+Epoch loss : 0.005405418574810028
+Epoch loss : 0.0054396893829107285
+Epoch loss : 0.005764320492744446
+Epoch loss : 0.005505438428372145
+Epoch loss : 0.005516286939382553
+Epoch loss : 0.005281439516693354
+==================Evaluating agent vs agent=========================
+Current balance of power : 3.391304347826087, 77, 22
+Current balance of power : 2.3636363636363638, 77, 32
+Current balance of power : 3.0416666666666665, 72, 23
+Current balance of power : 3.0, 80, 26
+Current balance of power : 3.3043478260869565, 75, 22
+Average red vs blue power projection: 3.0201910408432147
+Agent saved !
+
+Episode number 16 running...................................
+Epoch loss : 0.006491020787507296
+Epoch loss : 0.0062473611906170845
+Epoch loss : 0.005950435064733028
+Epoch loss : 0.0053534614853560925
+Epoch loss : 0.006071901880204678
+Epoch loss : 0.0052684820257127285
+Epoch loss : 0.005401737987995148
+Epoch loss : 0.004838608205318451
+Epoch loss : 0.005129288416355848
+Epoch loss : 0.004518965724855661
+Episode number 17 running...................................
+Epoch loss : 0.00619928166270256
+Epoch loss : 0.005785446614027023
+Epoch loss : 0.005066771060228348
+Epoch loss : 0.004854027181863785
+Epoch loss : 0.00497228279709816
+Epoch loss : 0.004682331811636686
+Epoch loss : 0.004475967958569527
+Epoch loss : 0.004347971640527248
+Epoch loss : 0.004255089443176985
+Epoch loss : 0.004451047163456678
+Episode number 18 running...................................
+Epoch loss : 0.00818522647023201
+Epoch loss : 0.007336219307035208
+Epoch loss : 0.007043561432510614
+Epoch loss : 0.0066209882497787476
+Epoch loss : 0.006482179742306471

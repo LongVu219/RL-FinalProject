@@ -11,8 +11,8 @@ from utils import *
 
 #=====================Define env and video setting================================================================================
 env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
-dead_penalty=-5, attack_penalty=-0.1, attack_opponent_reward=0.3,
-max_cycles=30, extra_features=False, render_mode = "rgb_array")
+dead_penalty=-0.5, attack_penalty=-0.1, attack_opponent_reward=0.3,
+max_cycles=100, extra_features=False, render_mode = "rgb_array")
 num_agent = 160
 env.reset()
 vid_dir = "video"
@@ -28,23 +28,7 @@ import resnet
 import torch
 
 device = 'cuda'
-#base model
-blue_agent = base_model.QNetwork(
-    env.observation_space("blue_0").shape, env.action_space("blue_0").n
-).to(device)
-blue_agent.load_state_dict(
-    torch.load("model/red.pt", weights_only=True, map_location=device)
-)
-blue_policy = "random"
 
-#current training model
-red_agent = resnet.QNetwork(
-    env.observation_space("red_0").shape, env.action_space("red_0").n
-).to(device)
-
-#load sth if needed
-
-red_policy = "best"
 #==================================================================================================
 
 
@@ -52,8 +36,7 @@ red_policy = "best"
 
 #==================================play game=====================================================
 
-def play_one_game(red_agent, blue_agent, env):
-    print('PLaying another game......................')
+def play_one_game(red_agent, blue_agent):
     env.reset()
 
     red_alive, blue_alive = 0, 0
@@ -69,39 +52,36 @@ def play_one_game(red_agent, blue_agent, env):
                     else: blue_alive += 1 
             action = None  # this agent has died
         else:
-            
             if agent_handle == "red":
-                action = get_action(env, agent, observation, red_agent, 'best')
+                action = get_action(env, None, agent, observation, red_agent, 'best')
             else:
-                action = get_action(env, agent, observation, blue_agent, 'random')
+                action = get_action(env, None, agent, observation, blue_agent, 'best')
         
         env.step(action)
         cnt += 1
-        if (cnt % 500 == 0):
-            print(f'Playing step {cnt}...')
 
     return red_alive, blue_alive
 
-def evaluate(red_agent, blue_agent, env, rounds):
-    red_win = 0
-    draw = 0
-    blue_win = 0
+def evaluate(red_agent, blue_agent, rounds, debug = False):
+    if (debug == True):
+        print('==================Evaluating agent vs agent=========================')
+    avg = 0
     for round in range(1, rounds + 1):
-        red, blue = play_one_game(red_agent, blue_agent, env)
-        if (red > blue): red_win += 1
-        if (red == blue): draw += 1
-        if (red < blue): blue_win += 1
+        red, blue = play_one_game(red_agent, blue_agent)
 
-        if (round % 1 == 0):
-            print(f'Current situation : {red} vs {blue}')
+        if (round % 1 == 0 and debug == True):
+            print(f'Current balance of power : {(red + 1)/(blue + 1)}, {red}, {blue}')
+        avg += (red + 1)/(blue + 1)
 
-    print('Evaluate result : -----------------')
-    print(f'Red winrate : {red_win/rounds}')
-    print(f'Draw rate : {draw/rounds}')
-    print(f'Blue winrate : {blue_win/rounds}')
+    avg /= rounds
+    if (debug == True):
+        print(f'Average red vs blue power projection: {avg}')
+    return avg
 
 
-evaluate(blue_agent, red_agent, env, 50)
+
+
+
 
 '''
     height, width, _ = frames[0].shape
