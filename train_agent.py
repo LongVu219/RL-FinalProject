@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader, TensorDataset
 env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
 dead_penalty=-0.1, attack_penalty=-0.1, attack_opponent_reward=0.5,
 max_cycles=300, extra_features=False, render_mode = "rgb_array")
-num_agent = 162
+num_agent = 160
 env.reset()
 vid_dir = "video"
 os.makedirs(vid_dir, exist_ok=True)
