@@ -6,10 +6,13 @@ import numpy as np
 import random
 import sys
 from torch.utils.data import DataLoader, TensorDataset
+import time
 
 def debug(var):
     print(var)
     sys.exit()
+
+start_time = time.time()
 
 env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
 dead_penalty=-0.3, attack_penalty=-0.1, attack_opponent_reward=3.5,
@@ -162,3 +165,8 @@ for episode in range (1, episodes + 1):
 print(best_score)
 env.close()
 #===================================================================================================================
+
+end_time = time.time()
+
+print(f'Total running time : {(end_time - start_time)/3600}hrs')
+
