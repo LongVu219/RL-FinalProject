@@ -7,12 +7,14 @@ import random
 import sys
 from torch.utils.data import DataLoader, TensorDataset
 
-
+def debug(var):
+    print(var)
+    sys.exit()
 
 env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
-dead_penalty=-0.1, attack_penalty=-0.1, attack_opponent_reward=0.5,
-max_cycles=300, extra_features=False, render_mode = "rgb_array")
-num_agent = 160
+dead_penalty=-0.3, attack_penalty=-0.1, attack_opponent_reward=3.5,
+max_cycles=200, extra_features=False, render_mode = "rgb_array")
+num_agent = 162
 env.reset()
 vid_dir = "video"
 os.makedirs(vid_dir, exist_ok=True)
@@ -96,50 +98,51 @@ episodes = 500
 for episode in range (1, episodes + 1):
 
     print(f'Episode number {episode} running...................................')
-
+    
     #gathering training data
     env.reset()
     X, y = [], []
-    buffer = []
 
     #because the reward is last reward, not te current reward so we have to trace backward
+    buffer: dict[str, list[tuple]] = {}
     for id, agent in enumerate(env.agent_iter()):
         observation, reward, termination, truncation, info = env.last()
         
+        agent_handle = agent.split("_")[0]
+        agent_id = int(agent.split("_")[1])
         if termination or truncation:
             action = None  # this agent has died
         else:
-            agent_handle = agent.split("_")[0]
             if agent_handle == "red":
-                action = get_action(env, episode, agent, observation, base_q_network, 'best')
+                action = get_action(env, episode, agent, observation, base_q_network, 'random')
             else:
                 action = get_action(env, episode, agent, observation, better_agent, 'epsilon')
         
-
-        buffer.append((agent, observation, action, reward, termination, truncation, info))
+        if (agent not in buffer):
+            buffer[agent] = []
+        buffer[agent].append((agent, observation, action, reward, termination, truncation, info))
         env.step(action)
 
-    for (i, content) in enumerate(buffer):
-        agent, observation, action, prv_reward, termination, truncation, info = content
-
+    for agent in buffer.keys():
+        state_array = buffer[agent]
         agent_handle = agent.split("_")[0]
-        if (termination or truncation or i + num_agent >= len(buffer) or agent_handle == 'red'): 
-            continue
-        else:
-            _1, nxt_observation, nxt_action, reward, nxt_termination, nxt_truncation, nxt_info = buffer[i + num_agent]
+        #if (agent_handle == 'red'): continue
+
+        for i in range(0, len(state_array) - 1):
+            agent, observation, action, prv_reward, termination, truncation, info = state_array[i]
+            _1, nxt_observation, nxt_action, reward, nxt_termination, nxt_truncation, nxt_info = state_array[i + 1]
 
             observation = convert_obs(observation)
             nxt_observation = convert_obs(nxt_observation)
 
-            #print(nxt_observation.shape, i)
-            #input size (batch_size, 5, 13, 13)
             with torch.no_grad():
                 next_max = better_agent(nxt_observation).squeeze(dim = 0).max()
                 tmp = better_agent(observation).squeeze(dim = 0)
                 tmp[action] = reward + next_max
                 X.append(observation.squeeze(dim = 0))
                 y.append(tmp)
-    
+
+
     X_tensor = torch.stack(X)
     y_tensor = torch.stack(y)
     dataset = TensorDataset(X_tensor, y_tensor)

@@ -18,16 +18,16 @@ def convert_obs(observation):
             torch.Tensor(observation).float().permute([2, 0, 1]).unsqueeze(0)
         ).to(device)
 
-def get_action(env, episode, agent, observation, network : nn.Module, policy : str):
+def get_action(envir, episode, agent, observation, network : nn.Module, policy : str):
     if (policy == 'random'):
-        return env.action_space(agent).sample()
+        return envir.action_space(agent).sample()
 
     #define eps-greedy params here
     if (policy == 'epsilon'):
         eps = max(0.1, 0.9 - episode/300)
         rd = random.random()
         if (rd < eps): 
-            return env.action_space(agent).sample()
+            return envir.action_space(agent).sample()
         
         observation = convert_obs(observation)
         with torch.no_grad():

@@ -10,11 +10,10 @@ from utils import *
 
 
 #=====================Define env and video setting================================================================================
-env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
-dead_penalty=-0.5, attack_penalty=-0.1, attack_opponent_reward=0.3,
-max_cycles=100, extra_features=False, render_mode = "rgb_array")
-num_agent = 160
-env.reset()
+eva_env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
+dead_penalty=-0.2, attack_penalty=-0.1, attack_opponent_reward=3.5,
+max_cycles=200, extra_features=False, render_mode = "rgb_array")
+eva_env.reset()
 vid_dir = "video"
 os.makedirs(vid_dir, exist_ok=True)
 fps = 35
@@ -37,13 +36,13 @@ device = 'cuda'
 #==================================play game=====================================================
 
 def play_one_game(red_agent, blue_agent):
-    env.reset()
+    eva_env.reset()
 
     red_alive, blue_alive = 0, 0
 
     cnt = 0
-    for agent in env.agent_iter():
-        observation, reward, termination, truncation, info = env.last()
+    for agent in eva_env.agent_iter():
+        observation, reward, termination, truncation, info = eva_env.last()
         agent_handle = agent.split("_")[0]
         if termination or truncation:
             if (truncation):
@@ -53,11 +52,11 @@ def play_one_game(red_agent, blue_agent):
             action = None  # this agent has died
         else:
             if agent_handle == "red":
-                action = get_action(env, None, agent, observation, red_agent, 'best')
+                action = get_action(eva_env, None, agent, observation, red_agent, 'random')
             else:
-                action = get_action(env, None, agent, observation, blue_agent, 'best')
+                action = get_action(eva_env, None, agent, observation, blue_agent, 'best')
         
-        env.step(action)
+        eva_env.step(action)
         cnt += 1
 
     return red_alive, blue_alive
