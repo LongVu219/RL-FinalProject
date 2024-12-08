@@ -5,8 +5,8 @@ import sys
 
 
 if __name__ == "__main__":
-    env = battle_v4.env(map_size=45, max_cycles = 2000, render_mode="rgb_array")
-    env.reset()
+    demo_env = battle_v4.env(map_size=45, max_cycles = 1000, render_mode="rgb_array")
+    demo_env.reset()
     vid_dir = "video"
     os.makedirs(vid_dir, exist_ok=True)
     fps = 24
@@ -19,20 +19,27 @@ if __name__ == "__main__":
     import torch
 
     q_network = resnet.QNetwork(
-        env.observation_space("blue_0").shape, env.action_space("blue_0").n
+        demo_env.observation_space("blue_0").shape, demo_env.action_space("blue_0").n
     )
     q_network.load_state_dict(
         torch.load("model/agent_1.pth", weights_only=True, map_location="cuda")
     )
-    for agent in env.agent_iter():
 
-        observation, reward, termination, truncation, info = env.last()
+    red_cnt = 81
+    blue_cnt = 81
+
+    for agent in demo_env.agent_iter():
+
+        observation, reward, termination, truncation, info = demo_env.last()
         
-
+        agent_handle = agent.split("_")[0]
         if termination or truncation:
+            if (truncation and termination):
+                if (agent_handle == 'red'): red_cnt -= 1
+                else: blue_cnt -= 1
+
             action = None  # this agent has died
         else:
-            agent_handle = agent.split("_")[0]
             if agent_handle == "blue":
                 observation = (
                     torch.Tensor(observation).float().permute([2, 0, 1]).unsqueeze(0)
@@ -41,13 +48,16 @@ if __name__ == "__main__":
                     q_values = q_network(observation)
                 action = torch.argmax(q_values, dim=1).numpy()[0]
             else:
-                action = env.action_space(agent).sample()
+                action = demo_env.action_space(agent).sample()
         
-        env.step(action)
+        demo_env.step(action)
 
         if agent == "red_0":
-            frames.append(env.render())
+            print(demo_env)
+            sys.exit()
+            frames.append(demo_env.render())
 
+    print(red_cnt, blue_cnt)
 
     height, width, _ = frames[0].shape
     out = cv2.VideoWriter(
@@ -62,4 +72,4 @@ if __name__ == "__main__":
     out.release()
     print("Done recording battle !!!")
 
-    env.close()
+    demo_env.close()

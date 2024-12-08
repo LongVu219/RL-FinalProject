@@ -157,7 +157,7 @@ for episode in range (1, episodes + 1):
 
     #Train model with given data
     amp = episode//10
-    train_model(min(100 + 50*amp, 750), dataloader, better_agent, optimizer, lr, loss_function)
+    train_model(min(100 + 75*amp, 750), dataloader, better_agent, optimizer, lr, loss_function)
 
     if (episode % 5 == 0):
         avg = evaluate(red_agent=base_q_network, blue_agent=better_agent, rounds=5, debug = True)
