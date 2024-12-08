@@ -15,8 +15,8 @@ def debug(var):
 start_time = time.time()
 
 env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
-dead_penalty=-0.3, attack_penalty=-0.1, attack_opponent_reward=3.5,
-max_cycles=200, extra_features=False, render_mode = "rgb_array")
+dead_penalty=-0.5, attack_penalty=-0.1, attack_opponent_reward=2.5,
+max_cycles=300, extra_features=False, render_mode = "rgb_array")
 num_agent = 162
 env.reset()
 vid_dir = "video"
@@ -97,7 +97,7 @@ def train_model(num_epoch, dataloader, model, optimzer, lr, loss_fn):
 from evaluate_fight import *
 
 best_score = 100
-episodes = 500
+episodes = 300
 for episode in range (1, episodes + 1):
 
     print(f'Episode number {episode} running...................................')
@@ -131,9 +131,11 @@ for episode in range (1, episodes + 1):
         agent_handle = agent.split("_")[0]
         #if (agent_handle == 'red'): continue
 
-        for i in range(0, len(state_array) - 1):
+        for i in range(0, len(state_array)):
             agent, observation, action, prv_reward, termination, truncation, info = state_array[i]
-            _1, nxt_observation, nxt_action, reward, nxt_termination, nxt_truncation, nxt_info = state_array[i + 1]
+            _1, nxt_observation, nxt_action, reward, nxt_termination, nxt_truncation, nxt_info = state_array[i]
+            if (i < len(state_array) - 1):
+                _1, nxt_observation, nxt_action, reward, nxt_termination, nxt_truncation, nxt_info = state_array[i + 1]
 
             observation = convert_obs(observation)
             nxt_observation = convert_obs(nxt_observation)
@@ -141,6 +143,8 @@ for episode in range (1, episodes + 1):
             with torch.no_grad():
                 next_max = better_agent(nxt_observation).squeeze(dim = 0).max()
                 tmp = better_agent(observation).squeeze(dim = 0)
+                if (i == len(state_array)):
+                    next_max = 0
                 tmp[action] = reward + next_max
                 X.append(observation.squeeze(dim = 0))
                 y.append(tmp)
@@ -152,7 +156,8 @@ for episode in range (1, episodes + 1):
     dataloader = DataLoader(dataset, batch_size=512, shuffle=True)
 
     #Train model with given data
-    train_model(100, dataloader, better_agent, optimizer, lr, loss_function)
+    amp = episode//10
+    train_model(min(100 + 50*amp, 750), dataloader, better_agent, optimizer, lr, loss_function)
 
     if (episode % 5 == 0):
         avg = evaluate(red_agent=base_q_network, blue_agent=better_agent, rounds=5, debug = True)

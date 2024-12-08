@@ -5,7 +5,7 @@ import sys
 
 
 if __name__ == "__main__":
-    env = battle_v4.env(map_size=45, render_mode="rgb_array")
+    env = battle_v4.env(map_size=45, max_cycles = 2000, render_mode="rgb_array")
     env.reset()
     vid_dir = "video"
     os.makedirs(vid_dir, exist_ok=True)
@@ -14,8 +14,6 @@ if __name__ == "__main__":
     
 
     # pretrained policies
-    frames = []
-    env.reset()
     import base_model
     import resnet
     import torch
@@ -53,7 +51,7 @@ if __name__ == "__main__":
 
     height, width, _ = frames[0].shape
     out = cv2.VideoWriter(
-        os.path.join(vid_dir, f"battle.mp4"),
+        os.path.join(vid_dir, f"battle_best.mp4"),
         cv2.VideoWriter_fourcc(*"mp4v"),
         fps,
         (width, height),
