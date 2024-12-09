@@ -15,7 +15,7 @@ def debug(var):
 start_time = time.time()
 
 env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
-dead_penalty=-0.5, attack_penalty=-0.1, attack_opponent_reward=2.5,
+dead_penalty=-1, attack_penalty=-0.1, attack_opponent_reward=0.5,
 max_cycles=300, extra_features=False, render_mode = "rgb_array")
 num_agent = 162
 env.reset()
@@ -68,7 +68,7 @@ from utils import *
 def train_1_epoch(num, dataloader, model, optimizer, lr, loss_fn):
 
     debug = False
-    if (num%10 == 0): debug = True
+    if (num%100 == 0): debug = True
     total_loss = 0
     for id, (X, y) in enumerate(dataloader):
         model.train()
@@ -84,11 +84,16 @@ def train_1_epoch(num, dataloader, model, optimizer, lr, loss_fn):
 
         total_loss += loss / len(dataloader)
     if (debug == True):
-        print(f'Epoch loss : {total_loss}')
+        print(f'Epoch number {id} loss : {total_loss}')
+    
+    return total_loss
 
 def train_model(num_epoch, dataloader, model, optimzer, lr, loss_fn):
-    for epoch in range(1, num_epoch + 1):
-        train_1_epoch(epoch, dataloader, model, optimzer, lr, loss_fn)
+    current_loss = 100
+    while(current_loss > 0.001):
+        for epoch in range(1, num_epoch + 1):
+            current_loss = train_1_epoch(epoch, dataloader, model, optimzer, lr, loss_fn)
+        
 #===============================================================================================================
 
 
@@ -153,11 +158,10 @@ for episode in range (1, episodes + 1):
     X_tensor = torch.stack(X)
     y_tensor = torch.stack(y)
     dataset = TensorDataset(X_tensor, y_tensor)
-    dataloader = DataLoader(dataset, batch_size=512, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=1024, shuffle=True)
 
     #Train model with given data
-    amp = episode//10
-    train_model(min(100 + 75*amp, 750), dataloader, better_agent, optimizer, lr, loss_function)
+    train_model(100, dataloader, better_agent, optimizer, lr, loss_function)
 
     if (episode % 5 == 0):
         avg = evaluate(red_agent=base_q_network, blue_agent=better_agent, rounds=5, debug = True)

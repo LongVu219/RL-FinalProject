@@ -38,17 +38,16 @@ device = 'cuda'
 def play_one_game(red_agent, blue_agent):
     eva_env.reset()
 
-    red_alive, blue_alive = 0, 0
-
-    cnt = 0
+    red_alive, blue_alive = 81, 81
+    mem = {}
     for agent in eva_env.agent_iter():
         observation, reward, termination, truncation, info = eva_env.last()
         agent_handle = agent.split("_")[0]
         if termination or truncation:
-            if (truncation):
-                if (termination == False):
-                    if (agent_handle == 'red'): red_alive += 1
-                    else: blue_alive += 1 
+            if (termination and agent not in mem):
+                mem[agent] = 1
+                if (agent_handle == 'red'): red_alive -= 1
+                else: blue_alive -= 1
             action = None  # this agent has died
         else:
             if agent_handle == "red":
@@ -57,7 +56,7 @@ def play_one_game(red_agent, blue_agent):
                 action = get_action(eva_env, None, agent, observation, blue_agent, 'best')
         
         eva_env.step(action)
-        cnt += 1
+
 
     return red_alive, blue_alive
 
@@ -76,25 +75,3 @@ def evaluate(red_agent, blue_agent, rounds, debug = False):
     if (debug == True):
         print(f'Average red vs blue power projection: {avg}')
     return avg
-
-
-
-
-
-
-'''
-    height, width, _ = frames[0].shape
-    out = cv2.VideoWriter(
-        os.path.join(vid_dir, f"pretrained-retest.mp4"),
-        cv2.VideoWriter_fourcc(*"mp4v"),
-        fps,
-        (width, height),
-    )
-    for frame in frames:
-        frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-        out.write(frame_bgr)
-    out.release()
-    print("Done recording pretrained agents")
-
-    env.close()
-'''

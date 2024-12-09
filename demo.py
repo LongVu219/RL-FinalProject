@@ -5,11 +5,11 @@ import sys
 
 
 if __name__ == "__main__":
-    demo_env = battle_v4.env(map_size=45, max_cycles = 1000, render_mode="rgb_array")
+    demo_env = battle_v4.env(map_size=45, max_cycles = 300, render_mode="rgb_array")
     demo_env.reset()
     vid_dir = "video"
     os.makedirs(vid_dir, exist_ok=True)
-    fps = 24
+    fps = 32
     frames = []
     
 
@@ -27,14 +27,17 @@ if __name__ == "__main__":
 
     red_cnt = 81
     blue_cnt = 81
-
+    mem = {}
+    step = 0
     for agent in demo_env.agent_iter():
 
         observation, reward, termination, truncation, info = demo_env.last()
         
         agent_handle = agent.split("_")[0]
         if termination or truncation:
-            if (truncation and termination):
+            
+            if (termination and agent not in mem):
+                mem[agent] = 1
                 if (agent_handle == 'red'): red_cnt -= 1
                 else: blue_cnt -= 1
 
@@ -51,11 +54,10 @@ if __name__ == "__main__":
                 action = demo_env.action_space(agent).sample()
         
         demo_env.step(action)
-
-        if agent == "red_0":
-            print(demo_env)
-            sys.exit()
+        if (step == 162):
             frames.append(demo_env.render())
+            step = 0
+        step += 1
 
     print(red_cnt, blue_cnt)
 
