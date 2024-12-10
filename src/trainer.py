@@ -5,21 +5,22 @@ from pettingzoo.utils.wrappers.order_enforcing import OrderEnforcingWrapper
 import base_model 
 from utils import * 
 from ppo import PPO
+from eval import *
 
 class CustomDataset(Dataset): 
     def __init__(
         self, 
-        old_states, 
-        old_actions, 
-        old_log_probs, 
-        old_state_values, 
+        states, 
+        actions, 
+        log_probs, 
+        state_values, 
         returns
     ): 
         super(CustomDataset, self).__init__() 
-        self.old_states = old_states 
-        self.old_actions = old_actions 
-        self.old_log_probs = old_log_probs 
-        self.old_state_values = old_state_values 
+        self.states = states 
+        self.actions = actions 
+        self.log_probs = log_probs 
+        self.state_values = state_values 
         self.returns = returns 
     
     def __len__(self): 
@@ -27,10 +28,10 @@ class CustomDataset(Dataset):
 
     def __getitem__(self, index):
         return {
-            "old_states": self.old_states[index].float(), 
-            "old_actions": self.old_actions[index].float(), 
-            "old_log_probs": self.old_log_probs[index].float(), 
-            "old_state_values": self.old_state_values[index].float(), 
+            "states": self.states[index].float(), 
+            "actions": self.actions[index].float(), 
+            "log_probs": self.log_probs[index].float(), 
+            "state_values": self.state_values[index].float(), 
             "returns": self.returns[index].float()
         }
 
@@ -60,8 +61,8 @@ class Trainer:
             action_shape = self.enviroment.action_space("blue_0").n, 
             episodes = self.episodes, 
             batch_size = 128, 
-            lr_actor = 1e-5, 
-            lr_critic = 1e-5, 
+            lr_actor = 0.0003, 
+            lr_critic = 0.001, 
             epsilon_clip = 0.2, 
             epochs = 50,
             device = "cuda"
@@ -72,8 +73,8 @@ class Trainer:
         for episode in range(1, self.episodes + 1): 
 
             buffer: dict[str, dict[str, list]] = {}
+            states, actions, log_probs, state_values, returns = [], [], [], [], [] 
 
-            old_states, old_actions, old_log_probs, old_state_values, returns = [], [], [], [], [] 
             self.enviroment.reset()
 
             print(f"Start collect data for training of episode {episode}.")
@@ -82,10 +83,10 @@ class Trainer:
 
                 if agent not in buffer.keys(): 
                     buffer[agent] = {
-                        "old_states": [], 
-                        "old_actions": [],
-                        "old_log_probs": [], 
-                        "old_state_values": [], 
+                        "states": [], 
+                        "actions": [],
+                        "log_probs": [], 
+                        "state_values": [], 
                         "rewards": [],
                     }
                 
@@ -107,57 +108,62 @@ class Trainer:
                         self.enviroment.step(action) 
 
                     elif agent_handle == "blue": 
-                        old_state = torch.tensor(observation).float().unsqueeze(0).to(self.device)   # 1x13x13x5
-                        
-                        old_action, old_log_prob, old_state_value = self.ppo.policy_old.act(old_state.permute(0, 3, 1, 2)) #1x5x13x13 
-                        
-                        buffer[agent]["old_states"].append(old_state.permute(0, 3, 1, 2).squeeze(0).detach().cpu().float()) #(5x13x13)
-                        buffer[agent]["old_actions"].append(old_action.squeeze(0).detach().cpu().float())  # (1,)
-                        buffer[agent]["old_log_probs"].append(old_log_prob.squeeze(0).detach().cpu().float()) #(1,)
-                        buffer[agent]["old_state_values"].append(old_state_value.squeeze(0).detach().cpu().float())  #(1,)
-                        buffer[agent]["rewards"].append(torch.tensor(reward).float())
+                        state = torch.tensor(observation).permute(2, 0, 1).float().unsqueeze(0).to(self.device)   # 1x5x13x13
+                        action, log_prob_action, state_value = self.ppo.policy.select_action(state) 
 
-                        self.enviroment.step(int(old_action.item())) 
+                        
+                        buffer[agent]["states"].append(state.unsqueeze(0)) #(5x13x13)
+                        buffer[agent]["actions"].append(action)  # (1,)
+                        buffer[agent]["log_probs"].append(log_prob_action) #(1,)
+                        buffer[agent]["state_values"].append(state_value)  #(1,)
+                        buffer[agent]["rewards"].append(float(reward))
+
+                        self.enviroment.step(action) 
                 else: 
-                    buffer[agent]["rewards"].append(torch.tensor(reward).float())
+                    buffer[agent]["rewards"].append(reward)
                     action = None 
                     self.enviroment.step(action) 
 
-            buffer[agent]["rewards"] = buffer[agent]["rewards"][0:len(buffer[agent]["old_actions"]) + 1]
-
+                
 
             for agent in buffer.keys(): 
-                old_states.extend(buffer[agent]["old_states"]) 
-                old_actions.extend(buffer[agent]["old_actions"]) 
-                old_log_probs.extend(buffer[agent]["old_log_probs"])
-                old_state_values.extend(buffer[agent]["old_state_values"]) 
+
+                buffer[agent]["rewards"] = buffer[agent]["rewards"][1:len(buffer[agent]["states"]) + 1]
+
+                states.extend(buffer[agent]["states"]) 
+                actions.extend(buffer[agent]["actions"]) 
+                log_probs.extend(buffer[agent]["log_probs"])
+                state_values.extend(buffer[agent]["state_values"]) 
+
                 
-                return_value = torch.tensor(0).float()
+                return_value = 0
                 for i, reward in enumerate(reversed(buffer[agent]["rewards"])):
                     if i == 0: 
                         return_value = reward 
                     else: 
                         return_value = self.gamma * return_value + reward 
                     
-                    if i == len(buffer[agent]["rewards"]) - 1: 
-                        break
-                    else:
-                        returns.insert(0, return_value) 
+            
+                    returns.insert(0, return_value) 
             
             print(f"Collection of data from episode {episode} is end, start training")
             
             dataset = CustomDataset(
-                old_states = old_states, 
-                old_actions = old_actions, 
-                old_log_probs = old_log_probs, 
-                old_state_values = old_state_values, 
+                states = states, 
+                actions = actions, 
+                log_probs = log_probs, 
+                state_values = state_values, 
                 returns = returns
             )
 
-            dataloader = DataLoader(dataset=dataset, batch_size=128, shuffle=True, pin_memory=True, num_workers=2) 
+            dataloader = DataLoader(dataset=dataset, batch_size=128, shuffle=False, pin_memory=True, num_workers=2) 
 
             self.ppo.train(episode=episode, dataloader=dataloader)  
             self.ppo.save(path=self.blue_model_path) 
+
+            if episode % 20 == 0: 
+
+                evaluate(red_agent=self.red_model, blue_agent=self.ppo, rounds=1, debug=True)
             
 
                     

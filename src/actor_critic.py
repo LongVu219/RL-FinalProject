@@ -3,6 +3,7 @@ from torch import nn
 
 from res_net import ResBlock
 
+
 class ActorCritic(nn.Module): 
     def __init__(
         self, 
@@ -39,27 +40,27 @@ class ActorCritic(nn.Module):
 
     def forward(self): 
         raise NotImplementedError
-
-
-    def act(self, state: torch.Tensor): # sample action from old network and return (action, action_log_probs, state_value) of old network 
-        action_probs = self.actor(state) 
-        dist = torch.distributions.Categorical(action_probs) 
-
-        action = dist.sample() 
-        action_log_probs = dist.log_prob(action) 
-
-        state_value = self.critic(state) 
-
-        return action.detach().float(), action_log_probs.detach().float(), state_value.detach().float()
     
-    # return (action_log_probs, state_value, entropy loss of distribution) of current network with (old state and old action)  
+    def select_action(self, state: torch.Tensor): 
 
-    def evaluate(self, state: torch.Tensor, action: torch.Tensor): 
+        #generate distribution pi(a|s_t)
         action_probs = self.actor(state) 
         dist = torch.distributions.Categorical(action_probs) 
-        
-        action_log_probs = dist.log_prob(action) 
-        dist_entropy = dist.entropy() 
-        state_value = self.critic(state) 
 
-        return action_log_probs.float(), state_value.float(), dist_entropy.float() 
+        #random action from distribution pi(a_t|s_t) (exploit) 
+        action = dist.sample() 
+
+        #get the log(pi(a_t|s_t))
+        action_log_prob = dist.log_prob(action)  
+
+        #get th state value V(s_t)
+        state_value = self.critic(state) 
+        
+        action = torch.squeeze(action).item()
+        action_log_prob = torch.squeeze(action_log_prob).item() 
+        state_value  = torch.squeeze(state_value).item() 
+
+        return action, action_log_prob, state_value  # a_t, log(pi(a_t|s_t)), V(s_t) => dataset
+
+
+    
