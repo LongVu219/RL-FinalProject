@@ -27,11 +27,11 @@ class CustomDataset(Dataset):
 
     def __getitem__(self, index):
         return {
-            "old_states": self.old_states[index], 
-            "old_actions": self.old_actions[index], 
-            "old_log_probs": self.old_log_probs[index], 
-            "old_state_values": self.old_state_values[index], 
-            "returns": self.returns[index]
+            "old_states": self.old_states[index].float(), 
+            "old_actions": self.old_actions[index].float(), 
+            "old_log_probs": self.old_log_probs[index].float(), 
+            "old_state_values": self.old_state_values[index].float(), 
+            "returns": self.returns[index].float()
         }
 
 
@@ -43,26 +43,28 @@ class Trainer:
         gamma: float,
         red_model_path: str, 
         blue_model_path: str,  
+        device: str
     ):
         self.enviroment = enviroment 
         self.episodes = episodes 
         self.gamma = gamma 
         self.red_model_path = red_model_path 
         self.blue_model_path = blue_model_path 
+        self.device = device
  
         self.red_model = base_model.QNetwork(self.enviroment.observation_space('red_0').shape, self.enviroment.action_space("red_0").n).to(self.device) 
         self.red_model.load_state_dict(torch.load(self.red_model_path, weights_only=True, map_location=self.device)) 
 
         self.ppo = PPO(
-            observation_shape = enviroment.observation_space("blue_0").shape, 
-            action_shape = enviroment.action_space("blue_0").shape, 
-            episodes = episodes, 
+            observation_shape = self.enviroment.observation_space("blue_0").shape, 
+            action_shape = self.enviroment.action_space("blue_0").n, 
+            episodes = self.episodes, 
             batch_size = 128, 
             lr_actor = 1e-5, 
             lr_critic = 1e-5, 
-            gamma = 1.0, 
             epsilon_clip = 0.2, 
-            epochs = 50 
+            epochs = 50,
+            device = "cuda"
         )
 
     def train(self): 
@@ -73,6 +75,8 @@ class Trainer:
 
             old_states, old_actions, old_log_probs, old_state_values, returns = [], [], [], [], [] 
             self.enviroment.reset()
+
+            print(f"Start collect data for training of episode {episode}.")
 
             for id, agent in enumerate(self.enviroment.agent_iter()): 
 
@@ -103,27 +107,24 @@ class Trainer:
                         self.enviroment.step(action) 
 
                     elif agent_handle == "blue": 
-                        old_state = torch.tensor(observation).float().unsqueeze(0)       # 13 x 13 x 5 => 1 x 13 x 13 x 5
-                        old_action, old_log_prob, old_state_value = self.ppo.policy_old.act(old_state)
+                        old_state = torch.tensor(observation).float().unsqueeze(0).to(self.device)   # 1x13x13x5
                         
-                        buffer[agent]["old_states"].append(old_state.squeeze(0))
-                        buffer[agent]["old_actions"].append(old_action.squeeze(0)) 
-                        buffer[agent]["old_log_probs"].append(old_log_prob.squeeze(0)) 
-                        buffer[agent]["old_state_values"].append(old_state_value.squeeze(0))  
-                        buffer[agent]["rewards"].append(reward)
+                        old_action, old_log_prob, old_state_value = self.ppo.policy_old.act(old_state.permute(0, 3, 1, 2)) #1x5x13x13 
+                        
+                        buffer[agent]["old_states"].append(old_state.permute(0, 3, 1, 2).squeeze(0).detach().cpu().float()) #(5x13x13)
+                        buffer[agent]["old_actions"].append(old_action.squeeze(0).detach().cpu().float())  # (1,)
+                        buffer[agent]["old_log_probs"].append(old_log_prob.squeeze(0).detach().cpu().float()) #(1,)
+                        buffer[agent]["old_state_values"].append(old_state_value.squeeze(0).detach().cpu().float())  #(1,)
+                        buffer[agent]["rewards"].append(torch.tensor(reward).float())
 
                         self.enviroment.step(int(old_action.item())) 
                 else: 
-                    buffer[agent]["rewards"].append(reward)
+                    buffer[agent]["rewards"].append(torch.tensor(reward).float())
                     action = None 
                     self.enviroment.step(action) 
 
             buffer[agent]["rewards"] = buffer[agent]["rewards"][0:len(buffer[agent]["old_actions"]) + 1]
-    
-            """
-            after run this loop, for example
-            
-            """
+
 
             for agent in buffer.keys(): 
                 old_states.extend(buffer[agent]["old_states"]) 
@@ -131,7 +132,7 @@ class Trainer:
                 old_log_probs.extend(buffer[agent]["old_log_probs"])
                 old_state_values.extend(buffer[agent]["old_state_values"]) 
                 
-                return_value = 0
+                return_value = torch.tensor(0).float()
                 for i, reward in enumerate(reversed(buffer[agent]["rewards"])):
                     if i == 0: 
                         return_value = reward 
@@ -142,6 +143,21 @@ class Trainer:
                         break
                     else:
                         returns.insert(0, return_value) 
+            
+            print(f"Collection of data from episode {episode} is end, start training")
+            
+            dataset = CustomDataset(
+                old_states = old_states, 
+                old_actions = old_actions, 
+                old_log_probs = old_log_probs, 
+                old_state_values = old_state_values, 
+                returns = returns
+            )
+
+            dataloader = DataLoader(dataset=dataset, batch_size=128, shuffle=True, pin_memory=True, num_workers=2) 
+
+            self.ppo.train(episode=episode, dataloader=dataloader)  
+            self.ppo.save(path=self.blue_model_path) 
             
 
                     

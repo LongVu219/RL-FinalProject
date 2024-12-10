@@ -50,7 +50,7 @@ class ActorCritic(nn.Module):
 
         state_value = self.critic(state) 
 
-        return action.detach(), action_log_probs.detach(), state_value.detach()
+        return action.detach().float(), action_log_probs.detach().float(), state_value.detach().float()
     
     # return (action_log_probs, state_value, entropy loss of distribution) of current network with (old state and old action)  
 
@@ -62,4 +62,4 @@ class ActorCritic(nn.Module):
         dist_entropy = dist.entropy() 
         state_value = self.critic(state) 
 
-        return action_log_probs, state_value, dist_entropy 
+        return action_log_probs.float(), state_value.float(), dist_entropy.float() 
