@@ -12,7 +12,7 @@ from utils import *
 #=====================Define env and video setting================================================================================
 eva_env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
 dead_penalty=-0.2, attack_penalty=-0.1, attack_opponent_reward=3.5,
-max_cycles=200, extra_features=False, render_mode = "rgb_array")
+max_cycles=300, extra_features=False, render_mode = "rgb_array")
 eva_env.reset()
 vid_dir = "video"
 os.makedirs(vid_dir, exist_ok=True)
@@ -51,7 +51,7 @@ def play_one_game(red_agent, blue_agent):
             action = None  # this agent has died
         else:
             if agent_handle == "red":
-                action = get_action(eva_env, None, agent, observation, red_agent, 'random')
+                action = get_action(eva_env, None, agent, observation, red_agent, 'best')
             else:
                 action = get_action(eva_env, None, agent, observation, blue_agent, 'best')
         
@@ -64,8 +64,12 @@ def evaluate(red_agent, blue_agent, rounds, debug = False):
     if (debug == True):
         print('==================Evaluating agent vs agent=========================')
     avg = 0
+    was_00 = 0
     for round in range(1, rounds + 1):
         red, blue = play_one_game(red_agent, blue_agent)
+
+        if (red == blue and red == 0):
+            was_00 += 1
 
         if (round % 1 == 0 and debug == True):
             print(f'Current balance of power : {(red + 1)/(blue + 1)}, {red}, {blue}')
@@ -74,4 +78,4 @@ def evaluate(red_agent, blue_agent, rounds, debug = False):
     avg /= rounds
     if (debug == True):
         print(f'Average red vs blue power projection: {avg}')
-    return avg
+    return avg, was_00

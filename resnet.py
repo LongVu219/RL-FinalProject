@@ -26,7 +26,10 @@ class QNetwork(nn.Module):
         super().__init__()
         self.resnet = nn.Sequential(
            ResBlock(observation_shape),
-           ResBlock(observation_shape, padding=1),
+           ResBlock(observation_shape),
+           ResBlock(observation_shape),
+           ResBlock(observation_shape),
+           ResBlock(observation_shape),
            nn.Flatten()
         )
         dummy_input = torch.randn(observation_shape).permute(2, 0, 1)
@@ -35,11 +38,11 @@ class QNetwork(nn.Module):
         flatten_dim = dummy_output.reshape(-1).shape[0]
 
         self.network = nn.Sequential(
-            nn.Linear(flatten_dim, 120),
+            nn.Linear(flatten_dim, 256),
             nn.ReLU(),
-            nn.Linear(120, 84),
+            nn.Linear(256, 128),
             nn.ReLU(),
-            nn.Linear(84, action_shape),
+            nn.Linear(128, action_shape),
         )
 
     def forward(self, x):
