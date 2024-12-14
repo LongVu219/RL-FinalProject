@@ -15,7 +15,7 @@ def debug(var):
 start_time = time.time()
 
 env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
-dead_penalty=-1, attack_penalty=-0.1, attack_opponent_reward=1.0,
+dead_penalty=-1, attack_penalty=-0.1, attack_opponent_reward=1,
 max_cycles=300, extra_features=False, render_mode = "rgb_array")
 num_agent = 162
 env.reset()
@@ -166,18 +166,14 @@ for episode in range (1, episodes + 1):
     #Train model with given data
     train_model(100, dataloader, better_agent, optimizer, lr, loss_function)
 
-    if (episode % 1 == 0):
-        avg, was_00 = evaluate(red_agent=base_q_network, blue_agent=better_agent, rounds=5, debug = True)
+    if (episode % 3 == 0):
+        avg = evaluate(red_agent=base_q_network, blue_agent=better_agent, rounds=5, debug = True)
         if (avg < best_score):
             torch.save(better_agent.state_dict(), 'model/agent_gen3.pth')
             print('Agent saved !')
             print()
             best_score = avg
         
-        if (was_00 >= 3):
-            torch.save(better_agent.state_dict(), 'model/agent_kamikaze.pth')
-            print('wind god saved !')
-            break
 
 print(best_score)
 env.close()

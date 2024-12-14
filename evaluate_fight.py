@@ -43,11 +43,12 @@ def play_one_game(red_agent, blue_agent):
     for agent in eva_env.agent_iter():
         observation, reward, termination, truncation, info = eva_env.last()
         agent_handle = agent.split("_")[0]
+
+        if (reward >= 4.5):
+            if (agent_handle == 'blue'): red_alive -= 1
+            else: blue_alive -= 1
+
         if termination or truncation:
-            if (termination and agent not in mem):
-                mem[agent] = 1
-                if (agent_handle == 'red'): red_alive -= 1
-                else: blue_alive -= 1
             action = None  # this agent has died
         else:
             if agent_handle == "red":
@@ -64,12 +65,8 @@ def evaluate(red_agent, blue_agent, rounds, debug = False):
     if (debug == True):
         print('==================Evaluating agent vs agent=========================')
     avg = 0
-    was_00 = 0
     for round in range(1, rounds + 1):
         red, blue = play_one_game(red_agent, blue_agent)
-
-        if (red == blue and red == 0):
-            was_00 += 1
 
         if (round % 1 == 0 and debug == True):
             print(f'Current balance of power : {(red + 1)/(blue + 1)}, {red}, {blue}')
@@ -78,4 +75,4 @@ def evaluate(red_agent, blue_agent, rounds, debug = False):
     avg /= rounds
     if (debug == True):
         print(f'Average red vs blue power projection: {avg}')
-    return avg, was_00
+    return avg
