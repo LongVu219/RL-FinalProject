@@ -1,0 +1,119 @@
+==================Episode #3 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 0.8636363636363636, R=18, B=21
+Current balance of power : R/B ratio: 0.23076923076923078, R=5, B=25
+Current balance of power : R/B ratio: 1.05, R=20, B=19
+Current balance of power : R/B ratio: 0.9444444444444444, R=16, B=17
+Current balance of power : R/B ratio: 0.5357142857142857, R=14, B=27
+Average red vs blue power projection: 0.7249128649128649
+==================Episode #6 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 0.05, R=1, B=39
+Current balance of power : R/B ratio: 0.02127659574468085, R=0, B=46
+Current balance of power : R/B ratio: 0.029411764705882353, R=0, B=33
+Current balance of power : R/B ratio: 0.02564102564102564, R=0, B=38
+Current balance of power : R/B ratio: 0.05405405405405406, R=1, B=36
+Average red vs blue power projection: 0.03607668802912858
+==================Episode #9 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 8.25, R=32, B=3
+Current balance of power : R/B ratio: 13.5, R=53, B=3
+Current balance of power : R/B ratio: 0.09090909090909091, R=1, B=21
+Current balance of power : R/B ratio: 3.2857142857142856, R=22, B=6
+Current balance of power : R/B ratio: 0.4166666666666667, R=4, B=11
+Average red vs blue power projection: 5.108658008658009
+==================Episode #12 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 6.5, R=38, B=5
+Current balance of power : R/B ratio: 2.4615384615384617, R=31, B=12
+Current balance of power : R/B ratio: 1.2, R=11, B=9
+Current balance of power : R/B ratio: 1.5, R=17, B=11
+Current balance of power : R/B ratio: 2.111111111111111, R=18, B=8
+Average red vs blue power projection: 2.7545299145299142
+==================Episode #15 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 4.2, R=41, B=9
+Current balance of power : R/B ratio: 6.428571428571429, R=44, B=6
+Current balance of power : R/B ratio: 10.8, R=53, B=4
+Current balance of power : R/B ratio: 3.4615384615384617, R=44, B=12
+Current balance of power : R/B ratio: 6.0, R=47, B=7
+Average red vs blue power projection: 6.178021978021978
+==================Episode #18 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 8.5, R=50, B=5
+Current balance of power : R/B ratio: 15.25, R=60, B=3
+Current balance of power : R/B ratio: 2.9166666666666665, R=34, B=11
+Current balance of power : R/B ratio: 11.4, R=56, B=4
+Current balance of power : R/B ratio: 20.333333333333332, R=60, B=2
+Average red vs blue power projection: 11.680000000000001
+==================Episode #21 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 33.5, R=66, B=1
+Current balance of power : R/B ratio: 35.5, R=70, B=1
+Current balance of power : R/B ratio: 35.0, R=69, B=1
+Current balance of power : R/B ratio: 22.0, R=65, B=2
+Current balance of power : R/B ratio: 16.5, R=65, B=3
+Average red vs blue power projection: 28.5
+==================Episode #24 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 33.5, R=66, B=1
+Current balance of power : R/B ratio: 37.0, R=73, B=1
+Current balance of power : R/B ratio: 36.0, R=71, B=1
+Current balance of power : R/B ratio: 16.75, R=66, B=3
+Current balance of power : R/B ratio: 34.0, R=67, B=1
+Average red vs blue power projection: 31.45
+==================Episode #27 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 75.0, R=74, B=0
+Current balance of power : R/B ratio: 77.0, R=76, B=0
+Current balance of power : R/B ratio: 79.0, R=78, B=0
+Current balance of power : R/B ratio: 78.0, R=77, B=0
+Current balance of power : R/B ratio: 39.0, R=77, B=1
+Average red vs blue power projection: 69.6
+==================Episode #30 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 78.0, R=77, B=0
+Current balance of power : R/B ratio: 39.0, R=77, B=1
+Current balance of power : R/B ratio: 74.0, R=73, B=0
+Current balance of power : R/B ratio: 76.0, R=75, B=0
+Current balance of power : R/B ratio: 74.0, R=73, B=0
+Average red vs blue power projection: 68.2
+==================Episode #33 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 79.0, R=78, B=0
+Current balance of power : R/B ratio: 40.0, R=79, B=1
+Current balance of power : R/B ratio: 40.0, R=79, B=1
+Current balance of power : R/B ratio: 39.5, R=78, B=1
+Current balance of power : R/B ratio: 81.0, R=80, B=0
+Average red vs blue power projection: 55.9
+==================Episode #36 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 39.5, R=78, B=1
+Current balance of power : R/B ratio: 80.0, R=79, B=0
+Current balance of power : R/B ratio: 78.0, R=77, B=0
+Current balance of power : R/B ratio: 38.5, R=76, B=1
+Current balance of power : R/B ratio: 38.0, R=75, B=1
+Average red vs blue power projection: 54.8
+==================Episode #39 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 81.0, R=80, B=0
+Current balance of power : R/B ratio: 40.5, R=80, B=1
+Current balance of power : R/B ratio: 80.0, R=79, B=0
+Current balance of power : R/B ratio: 79.0, R=78, B=0
+Current balance of power : R/B ratio: 82.0, R=81, B=0
+Average red vs blue power projection: 72.5
+==================Episode #42 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 81.0, R=80, B=0
+Current balance of power : R/B ratio: 79.0, R=78, B=0
+Current balance of power : R/B ratio: 40.0, R=79, B=1
+Current balance of power : R/B ratio: 81.0, R=80, B=0
+Current balance of power : R/B ratio: 79.0, R=78, B=0
+Average red vs blue power projection: 72.0
+==================Episode #45 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 82.0, R=81, B=0
+Current balance of power : R/B ratio: 40.5, R=80, B=1
+Current balance of power : R/B ratio: 82.0, R=81, B=0
+Current balance of power : R/B ratio: 40.5, R=80, B=1
+Current balance of power : R/B ratio: 81.0, R=80, B=0
+Average red vs blue power projection: 65.2
+==================Episode #48 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 82.0, R=81, B=0
+Current balance of power : R/B ratio: 82.0, R=81, B=0
+Current balance of power : R/B ratio: 41.0, R=81, B=1
+Current balance of power : R/B ratio: 81.0, R=80, B=0
+Current balance of power : R/B ratio: 81.0, R=80, B=0
+Average red vs blue power projection: 73.4
+==================Episode #51 - Evaluating agent vs agent=========================
+Current balance of power : R/B ratio: 41.0, R=81, B=1
+Current balance of power : R/B ratio: 41.0, R=81, B=1
+Current balance of power : R/B ratio: 27.333333333333332, R=81, B=2
+Current balance of power : R/B ratio: 40.5, R=80, B=1
+Current balance of power : R/B ratio: 81.0, R=80, B=0
+Average red vs blue power projection: 46.166666666666664

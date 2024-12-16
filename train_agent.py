@@ -8,6 +8,8 @@ import sys
 from torch.utils.data import DataLoader, TensorDataset
 import time
 
+from evaluate_plot import total_plot
+
 def debug(var):
     print(var)
     sys.exit()
@@ -53,7 +55,8 @@ optimizer = optim.Adam(better_agent.parameters(), lr=lr)
 loss_function = nn.MSELoss()
 #==================================================================================================
 
-
+log_error = open("logs/log_error.txt", "w")
+log_eval = open("logs/log_eval.txt", "w")
 
 
 
@@ -65,10 +68,9 @@ from utils import *
 
 
 #===================Training Neural Net - put it to another file soon==============================================
-def train_1_epoch(num, dataloader, model, optimizer, lr, loss_fn):
+def train_1_epoch(epoch_num, dataloader, model, optimizer, lr, loss_fn):
 
-    debug = False
-    if (num%100 == 0): debug = True
+    debug = (epoch_num%100 == 0)
     total_loss = 0
     for id, (X, y) in enumerate(dataloader):
         model.train()
@@ -82,7 +84,12 @@ def train_1_epoch(num, dataloader, model, optimizer, lr, loss_fn):
         loss.backward()
         optimizer.step()
 
-        total_loss += loss / len(dataloader)
+        total_loss += loss.item()
+
+    total_loss /= len(dataloader)
+
+    log_error.write(f"Epoch #{epoch_num}, Batch #{id}: Loss={total_loss}\n")
+
     if (debug == True):
         print(f'Epoch number {id} loss : {total_loss}')
     
@@ -95,7 +102,7 @@ def train_model(num_epoch, dataloader, model, optimzer, lr, loss_fn):
         for epoch in range(1, num_epoch + 1):
             current_loss = train_1_epoch(epoch, dataloader, model, optimzer, lr, loss_fn)
         
-        total_epoch += 100
+        total_epoch += num_epoch
         
 #===============================================================================================================
 
@@ -106,6 +113,7 @@ from evaluate_fight import *
 
 best_score = 100
 episodes = 300
+epochs_train = 100
 for episode in range (1, episodes + 1):
 
     print(f'Episode number {episode} running...................................')
@@ -164,10 +172,10 @@ for episode in range (1, episodes + 1):
     dataloader = DataLoader(dataset, batch_size=1024, shuffle=True)
 
     #Train model with given data
-    train_model(100, dataloader, better_agent, optimizer, lr, loss_function)
+    train_model(epochs_train, dataloader, better_agent, optimizer, lr, loss_function)
 
     if (episode % 3 == 0):
-        avg = evaluate(red_agent=base_q_network, blue_agent=better_agent, rounds=5, debug = True)
+        avg = evaluate(red_agent=base_q_network, blue_agent=better_agent, rounds=5, debug = True, log_eval=log_eval, episode=episode)
         if (avg < best_score):
             torch.save(better_agent.state_dict(), 'model/agent_gen3.pth')
             print('Agent saved !')
@@ -182,4 +190,7 @@ env.close()
 end_time = time.time()
 
 print(f'Total running time : {(end_time - start_time)/3600}hrs')
+log_error.close()
+log_eval.close()
 
+total_plot()

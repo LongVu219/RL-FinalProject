@@ -61,18 +61,25 @@ def play_one_game(red_agent, blue_agent):
 
     return red_alive, blue_alive
 
-def evaluate(red_agent, blue_agent, rounds, debug = False):
+def evaluate(
+    red_agent, blue_agent, rounds,
+    debug = False, log_eval=None,
+    episode=0
+):
     if (debug == True):
         print('==================Evaluating agent vs agent=========================')
+    log_eval.write(f'==================Episode #{episode} - Evaluating agent vs agent=========================\n')
     avg = 0
     for round in range(1, rounds + 1):
         red, blue = play_one_game(red_agent, blue_agent)
 
         if (round % 1 == 0 and debug == True):
             print(f'Current balance of power : {(red + 1)/(blue + 1)}, {red}, {blue}')
+        log_eval.write(f'Current balance of power : R/B ratio: {(red + 1)/(blue + 1)}, R={red}, B={blue}\n')
         avg += (red + 1)/(blue + 1)
 
     avg /= rounds
+    log_eval.write(f'Average red vs blue power projection: {avg}\n')
     if (debug == True):
         print(f'Average red vs blue power projection: {avg}')
     return avg
