@@ -6,13 +6,13 @@ class ResBlock(nn.Module):
     def __init__(self, observation_shape, padding = 1):
         super().__init__()
 
-
+        #to retake kamikaze, set observation_shape[-1] * 3 -> * 2
         self.cnn = nn.Sequential(
             nn.Conv2d(observation_shape[-1], observation_shape[-1], 3, padding=padding),
             nn.ReLU(),
-            nn.Conv2d(observation_shape[-1], observation_shape[-1] * 2, 3, padding=padding),
+            nn.Conv2d(observation_shape[-1], observation_shape[-1] * 3, 3, padding=padding),
             nn.ReLU(),
-            nn.Conv2d(observation_shape[-1] * 2, observation_shape[-1], 1, padding=0),
+            nn.Conv2d(observation_shape[-1] * 3, observation_shape[-1], 1, padding=0),
             nn.ReLU()
         )
         
@@ -36,13 +36,16 @@ class QNetwork(nn.Module):
 
         dummy_output = self.resnet(dummy_input)
         flatten_dim = dummy_output.reshape(-1).shape[0]
-
+        
+        #to retake kamikaze, set nn.Linear(128, action_shape),
         self.network = nn.Sequential(
             nn.Linear(flatten_dim, 256),
             nn.ReLU(),
             nn.Linear(256, 128),
             nn.ReLU(),
-            nn.Linear(128, action_shape),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Linear(64, action_shape),
         )
 
     def forward(self, x):

@@ -1,288 +1,241 @@
 Episode number 1 running...................................
-Epoch number 15 loss : 0.0007074731402099133
+Epoch number 26 loss : 0.000422274402808398
 Episode number 2 running...................................
-Epoch number 13 loss : 0.0009675850160419941
+Epoch number 26 loss : 0.0005034562782384455
 Episode number 3 running...................................
-Epoch number 17 loss : 0.0014829604187980294
+Epoch number 11 loss : 0.0030132161919027567
 ==================Evaluating agent vs agent=========================
-Current balance of power : 1.5, 14, 9
-Current balance of power : 2.4444444444444446, 21, 8
-Current balance of power : 2.625, 20, 7
-Current balance of power : 6.6, 32, 4
-Current balance of power : 6.75, 26, 3
-Average red vs blue power projection: 3.983888888888889
+Current balance of power : 0.7049180327868853, 42, 60
+Current balance of power : 0.7894736842105263, 44, 56
+Current balance of power : 0.7931034482758621, 45, 57
+Current balance of power : 0.8103448275862069, 46, 57
+Current balance of power : 0.8666666666666667, 51, 59
+Average red vs blue power projection: 0.7929013319052294
 Agent saved !
 
 Episode number 4 running...................................
-Epoch number 14 loss : 0.0021590127144008875
+Epoch number 18 loss : 0.001290078042075038
 Episode number 5 running...................................
-Epoch number 12 loss : 0.0034895457793027163
+Epoch number 11 loss : 0.0024538261350244284
 Episode number 6 running...................................
-Epoch number 11 loss : 0.005374751519411802
+Epoch number 8 loss : 0.004395480267703533
 ==================Evaluating agent vs agent=========================
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Average red vs blue power projection: 1.0
-Agent saved !
-
+Current balance of power : 0.9347826086956522, 42, 45
+Current balance of power : 0.8627450980392157, 43, 50
+Current balance of power : 0.9607843137254902, 48, 50
+Current balance of power : 1.0212765957446808, 47, 46
+Current balance of power : 0.8518518518518519, 45, 53
+Average red vs blue power projection: 0.9262880936113783
 Episode number 7 running...................................
-Epoch number 19 loss : 0.006068823859095573
+Epoch number 13 loss : 0.005250631831586361
 Episode number 8 running...................................
-Epoch number 8 loss : 0.011178325861692429
+Epoch number 10 loss : 0.008293493650853634
 Episode number 9 running...................................
-Epoch number 22 loss : 0.007964156568050385
+Epoch number 14 loss : 0.007981049828231335
 ==================Evaluating agent vs agent=========================
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.2352941176470589, 20, 16
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 0.4117647058823529, 6, 16
-Average red vs blue power projection: 0.9294117647058824
-Agent saved !
-
+Current balance of power : 1.0, 44, 44
+Current balance of power : 0.9772727272727273, 42, 43
+Current balance of power : 0.9772727272727273, 42, 43
+Current balance of power : 1.0465116279069768, 44, 42
+Current balance of power : 1.3448275862068966, 38, 28
+Average red vs blue power projection: 1.0691769337318657
 Episode number 10 running...................................
-Epoch number 12 loss : 0.012709280475974083
+Epoch number 9 loss : 0.01357442419975996
 Episode number 11 running...................................
-Epoch number 11 loss : 0.02056157775223255
+Epoch number 14 loss : 0.014247660525143147
 Episode number 12 running...................................
-Epoch number 20 loss : 0.015122314915060997
+Epoch number 8 loss : 0.023843886330723763
 ==================Evaluating agent vs agent=========================
-Current balance of power : 29.0, 57, 1
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Average red vs blue power projection: 6.6
+Current balance of power : 0.8333333333333334, 14, 17
+Current balance of power : 1.1304347826086956, 25, 22
+Current balance of power : 0.95, 18, 19
+Current balance of power : 1.3888888888888888, 24, 17
+Current balance of power : 1.0555555555555556, 18, 17
+Average red vs blue power projection: 1.0716425120772946
 Episode number 13 running...................................
-Epoch number 12 loss : 0.02347133494913578
+Epoch number 14 loss : 0.02332065813243389
 Episode number 14 running...................................
-Epoch number 8 loss : 0.03976579010486603
+Epoch number 9 loss : 0.027880998328328133
 Episode number 15 running...................................
-Epoch number 7 loss : 0.05359365791082382
+Epoch number 11 loss : 0.04130075126886368
 ==================Evaluating agent vs agent=========================
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Average red vs blue power projection: 1.0
+Current balance of power : 3.5714285714285716, 24, 6
+Current balance of power : 7.2, 35, 4
+Current balance of power : 4.25, 33, 7
+Current balance of power : 25.5, 50, 1
+Current balance of power : 13.75, 54, 3
+Average red vs blue power projection: 10.854285714285714
 Episode number 16 running...................................
-Epoch number 16 loss : 0.03640269115567207
+Epoch number 9 loss : 0.06072908639907837
 Episode number 17 running...................................
-Epoch number 10 loss : 0.07242674380540848
+Epoch number 15 loss : 0.05155942216515541
 Episode number 18 running...................................
-Epoch number 13 loss : 0.07481595128774643
+Epoch number 13 loss : 0.07486718147993088
 ==================Evaluating agent vs agent=========================
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Average red vs blue power projection: 1.0
+Current balance of power : 2.7777777777777777, 24, 8
+Current balance of power : 7.8, 38, 4
+Current balance of power : 6.0, 29, 4
+Current balance of power : 4.571428571428571, 31, 6
+Current balance of power : 2.142857142857143, 14, 6
+Average red vs blue power projection: 4.658412698412698
 Episode number 19 running...................................
-Epoch number 13 loss : 0.08604134619235992
+Epoch number 10 loss : 0.09631835669279099
 Episode number 20 running...................................
-Epoch number 9 loss : 0.15919090807437897
-Epoch number 9 loss : 0.13544237613677979
-Epoch number 9 loss : 0.12736257910728455
-Epoch number 9 loss : 0.11886467039585114
-Epoch number 9 loss : 0.11381614953279495
-Epoch number 9 loss : 0.10602980107069016
-Epoch number 9 loss : 0.10359684377908707
-Epoch number 9 loss : 0.095856212079525
+Epoch number 9 loss : 0.1249820739030838
+Epoch number 9 loss : 0.10620225220918655
+Epoch number 9 loss : 0.09348956495523453
 Episode number 21 running...................................
-Epoch number 8 loss : 0.2202456146478653
-Epoch number 8 loss : 0.19749408960342407
-Epoch number 8 loss : 0.17882491648197174
-Epoch number 8 loss : 0.17048978805541992
-Epoch number 8 loss : 0.16291934251785278
-Epoch number 8 loss : 0.15927691757678986
-Epoch number 8 loss : 0.14774803817272186
-Epoch number 8 loss : 0.1398107409477234
-Epoch number 8 loss : 0.15652604401111603
-Epoch number 8 loss : 0.13649982213974
+Epoch number 7 loss : 0.20793187618255615
+Epoch number 7 loss : 0.1726679503917694
+Epoch number 7 loss : 0.15658053755760193
+Epoch number 7 loss : 0.1462348848581314
+Epoch number 7 loss : 0.14000210165977478
+Epoch number 7 loss : 0.13258521258831024
+Epoch number 7 loss : 0.1252506524324417
+Epoch number 7 loss : 0.12053520232439041
+Epoch number 7 loss : 0.11978506296873093
+Epoch number 7 loss : 0.11575685441493988
 ==================Evaluating agent vs agent=========================
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 37.5, 74, 1
-Current balance of power : 1.0, 0, 0
-Current balance of power : 34.0, 67, 1
-Average red vs blue power projection: 14.9
+Current balance of power : 68.0, 67, 0
+Current balance of power : 32.5, 64, 1
+Current balance of power : 32.5, 64, 1
+Current balance of power : 28.5, 56, 1
+Current balance of power : 68.0, 67, 0
+Average red vs blue power projection: 45.9
 Episode number 22 running...................................
-Epoch number 12 loss : 0.24969016015529633
-Epoch number 12 loss : 0.22152742743492126
-Epoch number 12 loss : 0.20777177810668945
-Epoch number 12 loss : 0.20912407338619232
-Epoch number 12 loss : 0.19366081058979034
-Epoch number 12 loss : 0.18394535779953003
-Epoch number 12 loss : 0.188011035323143
-Epoch number 12 loss : 0.18611478805541992
-Epoch number 12 loss : 0.1782790720462799
-Epoch number 12 loss : 0.16696883738040924
+Epoch number 10 loss : 0.20125076174736023
+Epoch number 10 loss : 0.17181344330310822
+Epoch number 10 loss : 0.15607565641403198
+Epoch number 10 loss : 0.14339222013950348
+Epoch number 10 loss : 0.13473977148532867
+Epoch number 10 loss : 0.12549170851707458
+Epoch number 10 loss : 0.12515665590763092
+Epoch number 10 loss : 0.11663302779197693
+Epoch number 10 loss : 0.11400038748979568
+Epoch number 10 loss : 0.10810841619968414
 Episode number 23 running...................................
-Epoch number 26 loss : 0.2247401475906372
-Epoch number 26 loss : 0.20578595995903015
-Epoch number 26 loss : 0.19248387217521667
-Epoch number 26 loss : 0.18770796060562134
-Epoch number 26 loss : 0.1777200698852539
-Epoch number 26 loss : 0.1743130385875702
-Epoch number 26 loss : 0.1704593151807785
-Epoch number 26 loss : 0.16919462382793427
-Epoch number 26 loss : 0.1656738966703415
-Epoch number 26 loss : 0.1646880954504013
+Epoch number 9 loss : 0.31825271248817444
+Epoch number 9 loss : 0.27630653977394104
+Epoch number 9 loss : 0.23605021834373474
+Epoch number 9 loss : 0.22822192311286926
+Epoch number 9 loss : 0.2124902904033661
+Epoch number 9 loss : 0.2030590921640396
+Epoch number 9 loss : 0.18573437631130219
+Epoch number 9 loss : 0.1813424825668335
+Epoch number 9 loss : 0.18133507668972015
+Epoch number 9 loss : 0.17461036145687103
 Episode number 24 running...................................
-Epoch number 22 loss : 0.2818775177001953
-Epoch number 22 loss : 0.25529682636260986
-Epoch number 22 loss : 0.2369871735572815
-Epoch number 22 loss : 0.2265022248029709
-Epoch number 22 loss : 0.22127248346805573
-Epoch number 22 loss : 0.21458199620246887
-Epoch number 22 loss : 0.2125583291053772
-Epoch number 22 loss : 0.20237158238887787
-Epoch number 22 loss : 0.19976860284805298
-Epoch number 22 loss : 0.1985580176115036
+Epoch number 14 loss : 0.4292941093444824
+Epoch number 14 loss : 0.36602407693862915
+Epoch number 14 loss : 0.3346179723739624
+Epoch number 14 loss : 0.30840003490448
+Epoch number 14 loss : 0.2976844310760498
+Epoch number 14 loss : 0.2845131456851959
+Epoch number 14 loss : 0.2735852599143982
+Epoch number 14 loss : 0.27083802223205566
+Epoch number 14 loss : 0.25905951857566833
+Epoch number 14 loss : 0.25202473998069763
 ==================Evaluating agent vs agent=========================
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
 Current balance of power : 36.0, 71, 1
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Average red vs blue power projection: 8.0
+Current balance of power : 74.0, 73, 0
+Current balance of power : 73.0, 72, 0
+Current balance of power : 37.0, 73, 1
+Current balance of power : 76.0, 75, 0
+Average red vs blue power projection: 59.2
 Episode number 25 running...................................
-Epoch number 9 loss : 0.7364783883094788
-Epoch number 9 loss : 0.6531352400779724
-Epoch number 9 loss : 0.6036865711212158
-Epoch number 9 loss : 0.5731285810470581
-Epoch number 9 loss : 0.561328649520874
-Epoch number 9 loss : 0.5508683323860168
-Epoch number 9 loss : 0.527845561504364
-Epoch number 9 loss : 0.5172721147537231
-Epoch number 9 loss : 0.5137503147125244
-Epoch number 9 loss : 0.5071174502372742
+Epoch number 10 loss : 1.01644766330719
+Epoch number 10 loss : 0.7996530532836914
+Epoch number 10 loss : 0.6954262256622314
+Epoch number 10 loss : 0.6501896977424622
+Epoch number 10 loss : 0.6346567869186401
+Epoch number 10 loss : 0.6643517017364502
+Epoch number 10 loss : 0.5455330610275269
+Epoch number 10 loss : 0.5367288589477539
+Epoch number 10 loss : 0.49159136414527893
+Epoch number 10 loss : 0.4874834418296814
 Episode number 26 running...................................
-Epoch number 11 loss : 1.1270792484283447
-Epoch number 11 loss : 1.0070887804031372
-Epoch number 11 loss : 0.9643950462341309
-Epoch number 11 loss : 0.9510527849197388
-Epoch number 11 loss : 0.9065569639205933
-Epoch number 11 loss : 0.8723082542419434
-Epoch number 11 loss : 0.8650603294372559
-Epoch number 11 loss : 0.8449996709823608
-Epoch number 11 loss : 0.8331665992736816
-Epoch number 11 loss : 0.8193755745887756
+Epoch number 12 loss : 0.7910418510437012
+Epoch number 12 loss : 0.6633395552635193
+Epoch number 12 loss : 0.6054618954658508
+Epoch number 12 loss : 0.5647760629653931
+Epoch number 12 loss : 0.5293883681297302
+Epoch number 12 loss : 0.5139389634132385
+Epoch number 12 loss : 0.493727445602417
+Epoch number 12 loss : 0.48411068320274353
+Epoch number 12 loss : 0.478762149810791
+Epoch number 12 loss : 0.4557960629463196
 Episode number 27 running...................................
-Epoch number 11 loss : 1.9058576822280884
-Epoch number 11 loss : 1.663459062576294
-Epoch number 11 loss : 1.5917104482650757
-Epoch number 11 loss : 1.5160269737243652
-Epoch number 11 loss : 1.4743146896362305
-Epoch number 11 loss : 1.4554507732391357
-Epoch number 11 loss : 1.4205399751663208
-Epoch number 11 loss : 1.402734398841858
-Epoch number 11 loss : 1.3983124494552612
-Epoch number 11 loss : 1.3494627475738525
+Epoch number 11 loss : 1.3543678522109985
+Epoch number 11 loss : 1.1431753635406494
+Epoch number 11 loss : 1.0243302583694458
+Epoch number 11 loss : 0.9787763357162476
+Epoch number 11 loss : 0.9312205910682678
+Epoch number 11 loss : 0.9065673351287842
+Epoch number 11 loss : 0.8379883766174316
+Epoch number 11 loss : 0.8753963112831116
+Epoch number 11 loss : 0.8285385966300964
+Epoch number 11 loss : 0.8104503154754639
 ==================Evaluating agent vs agent=========================
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Average red vs blue power projection: 1.0
+Current balance of power : 74.0, 73, 0
+Current balance of power : 77.0, 76, 0
+Current balance of power : 69.0, 68, 0
+Current balance of power : 75.0, 74, 0
+Current balance of power : 74.0, 73, 0
+Average red vs blue power projection: 73.8
 Episode number 28 running...................................
-Epoch number 26 loss : 1.902890682220459
-Epoch number 26 loss : 1.7046974897384644
-Epoch number 26 loss : 1.6483994722366333
-Epoch number 26 loss : 1.6063646078109741
-Epoch number 26 loss : 1.5658200979232788
-Epoch number 26 loss : 1.5317871570587158
-Epoch number 26 loss : 1.5030673742294312
-Epoch number 26 loss : 1.4708573818206787
-Epoch number 26 loss : 1.437132716178894
-Epoch number 26 loss : 1.4211362600326538
+Epoch number 9 loss : 2.5096335411071777
+Epoch number 9 loss : 2.0952985286712646
+Epoch number 9 loss : 1.9173251390457153
+Epoch number 9 loss : 1.8142296075820923
+Epoch number 9 loss : 1.9557586908340454
+Epoch number 9 loss : 1.7547633647918701
+Epoch number 9 loss : 1.5238988399505615
+Epoch number 9 loss : 1.5281314849853516
+Epoch number 9 loss : 1.6115471124649048
+Epoch number 9 loss : 1.6177982091903687
 Episode number 29 running...................................
-Epoch number 8 loss : 6.779210567474365
-Epoch number 8 loss : 5.825199604034424
-Epoch number 8 loss : 5.606431007385254
-Epoch number 8 loss : 5.165507793426514
-Epoch number 8 loss : 5.298731803894043
-Epoch number 8 loss : 4.807495594024658
-Epoch number 8 loss : 4.928508758544922
-Epoch number 8 loss : 5.019690036773682
-Epoch number 8 loss : 4.756943702697754
-Epoch number 8 loss : 4.565118312835693
+Epoch number 14 loss : 3.276742935180664
+Epoch number 14 loss : 2.7633233070373535
+Epoch number 14 loss : 2.6175551414489746
+Epoch number 14 loss : 2.4514646530151367
+Epoch number 14 loss : 2.4142343997955322
+Epoch number 14 loss : 2.2287089824676514
+Epoch number 14 loss : 2.0944252014160156
+Epoch number 14 loss : 2.104377508163452
+Epoch number 14 loss : 2.0306732654571533
+Epoch number 14 loss : 1.9517964124679565
 Episode number 30 running...................................
-Epoch number 20 loss : 5.473357677459717
-Epoch number 20 loss : 4.968474864959717
-Epoch number 20 loss : 4.7035112380981445
-Epoch number 20 loss : 4.589912414550781
-Epoch number 20 loss : 4.471827983856201
-Epoch number 20 loss : 4.3510637283325195
-Epoch number 20 loss : 4.256406307220459
-Epoch number 20 loss : 4.211893558502197
-Epoch number 20 loss : 4.133917808532715
-Epoch number 20 loss : 4.146182060241699
+Epoch number 26 loss : 3.1166770458221436
+Epoch number 26 loss : 2.7191708087921143
+Epoch number 26 loss : 2.5039873123168945
+Epoch number 26 loss : 2.429400682449341
+Epoch number 26 loss : 2.28298282623291
+Epoch number 26 loss : 2.201965093612671
+Epoch number 26 loss : 2.1448075771331787
+Epoch number 26 loss : 2.1373989582061768
+Epoch number 26 loss : 2.051723003387451
+Epoch number 26 loss : 1.9864150285720825
 ==================Evaluating agent vs agent=========================
-Current balance of power : 38.5, 76, 1
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
+Current balance of power : 37.5, 74, 1
+Current balance of power : 79.0, 78, 0
+Current balance of power : 79.0, 78, 0
 Current balance of power : 38.0, 75, 1
-Current balance of power : 1.0, 0, 0
-Average red vs blue power projection: 15.9
+Current balance of power : 79.0, 78, 0
+Average red vs blue power projection: 62.5
 Episode number 31 running...................................
-Epoch number 22 loss : 7.152897834777832
-Epoch number 22 loss : 6.527467250823975
-Epoch number 22 loss : 6.216219425201416
-Epoch number 22 loss : 6.034884452819824
-Epoch number 22 loss : 5.882068157196045
-Epoch number 22 loss : 5.728320121765137
-Epoch number 22 loss : 5.546477794647217
-Epoch number 22 loss : 5.494734287261963
-Epoch number 22 loss : 5.332374095916748
-Epoch number 22 loss : 5.214982986450195
+Epoch number 11 loss : 6.44330358505249
+Epoch number 11 loss : 5.45082950592041
+Epoch number 11 loss : 5.050442218780518
+Epoch number 11 loss : 4.7121357917785645
+Epoch number 11 loss : 4.627597808837891
+Epoch number 11 loss : 4.510543346405029
+Epoch number 11 loss : 4.230305194854736
+Epoch number 11 loss : 4.065862655639648
+Epoch number 11 loss : 3.8020167350769043
+Epoch number 11 loss : 3.8241608142852783
 Episode number 32 running...................................
-Epoch number 10 loss : 20.024642944335938
-Epoch number 10 loss : 18.296539306640625
-Epoch number 10 loss : 17.556779861450195
-Epoch number 10 loss : 16.358814239501953
-Epoch number 10 loss : 16.136926651000977
-Epoch number 10 loss : 15.519258499145508
-Epoch number 10 loss : 15.6151762008667
-Epoch number 10 loss : 15.301959037780762
-Epoch number 10 loss : 15.116369247436523
-Epoch number 10 loss : 14.76335334777832
-Episode number 33 running...................................
-Epoch number 26 loss : 16.634828567504883
-Epoch number 26 loss : 15.545838356018066
-Epoch number 26 loss : 15.214666366577148
-Epoch number 26 loss : 14.785989761352539
-Epoch number 26 loss : 13.834525108337402
-Epoch number 26 loss : 13.398279190063477
-Epoch number 26 loss : 13.380295753479004
-Epoch number 26 loss : 12.814361572265625
-Epoch number 26 loss : 12.708333969116211
-Epoch number 26 loss : 12.371455192565918
-==================Evaluating agent vs agent=========================
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Current balance of power : 1.0, 0, 0
-Average red vs blue power projection: 1.0
-Episode number 34 running...................................
-Epoch number 12 loss : 42.78272247314453
-Epoch number 12 loss : 38.37232208251953
-Epoch number 12 loss : 35.94683074951172
-Epoch number 12 loss : 34.6533317565918
-Epoch number 12 loss : 33.680484771728516
-Epoch number 12 loss : 32.888427734375
-Epoch number 12 loss : 32.1309928894043
-Epoch number 12 loss : 31.78927993774414
-Epoch number 12 loss : 30.98274040222168
-Epoch number 12 loss : 30.683486938476562
-Episode number 35 running...................................
-Epoch number 24 loss : 44.649574279785156
-Epoch number 24 loss : 39.99180603027344
-Epoch number 24 loss : 38.01128005981445
+Epoch number 19 loss : 6.631532669067383
+Epoch number 19 loss : 5.588473320007324
+Epoch number 19 loss : 5.263182640075684
+Epoch number 19 loss : 4.937647342681885
+Epoch number 19 loss : 4.911067962646484
