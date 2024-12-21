@@ -103,7 +103,7 @@ base_model_red = BaseQNetwork((13, 13, 5), (21)).to("cuda")
 base_model_red.load_state_dict(torch.load("./pretrained_model/red.pt"))
 
 my_model = CrossQNetwork((13, 13, 5), (21)).to("cuda") 
-my_model.load_state_dict(torch.load("./pretrained_model/blue.pth")) 
+my_model.load_state_dict(torch.load("./pretrained_model/blue_cross.pth")) 
 
 
 def eval(red, blue, red_policy, blue_policy, episodes): 
