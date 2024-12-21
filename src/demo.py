@@ -99,13 +99,13 @@ class FinalQNetwork(nn.Module):
     
 
 final_model = FinalQNetwork((13, 13, 5), (21)).to("cuda") 
-final_model.load_state_dict(torch.load("../pretrained_model/red_final.pt")) 
+final_model.load_state_dict(torch.load("./pretrained_model/red_final.pt")) 
 
 base_model_red = BaseQNetwork((13, 13, 5), (21)).to("cuda") 
-base_model_red.load_state_dict(torch.load("../pretrained_model/red.pt"))
+base_model_red.load_state_dict(torch.load("./pretrained_model/red.pt"))
 
-my_model = CrossQNetwork((13, 13, 5), (21)).to("cuda")
-my_model.load_state_dict(torch.load("../pretrained_model/blue.pth")) 
+my_model = CrossQNetwork((13, 13, 5), (21)).to("cuda") 
+my_model.load_state_dict(torch.load("./pretrained_model/blue.pth")) 
 
 demo_env = battle_v4.env(map_size=45, max_cycles=300, render_mode="rgb_array")
 demo_env.reset()

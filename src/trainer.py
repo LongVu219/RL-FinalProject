@@ -72,9 +72,9 @@ class Trainer:
         tau: float = 0.1, 
         device: str = "cuda", 
         epsilon_min: float = 0.1,
-        path_blue: str = "../pretrained_model/blue.pth",
-        path_red: str = "../pretrained_model/red.pth", 
-        log_path: str = "../log.txt"
+        path_blue: str = "./pretrained_model/blue.pth",
+        path_red: str = "./pretrained_model/red.pth", 
+        log_path: str = "./log.txt"
     ): 
         self.enviroment = enviroment 
         self.episodes = episodes 
