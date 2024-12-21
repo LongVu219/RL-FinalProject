@@ -1,12 +1,31 @@
 import re
+import matplotlib.pyplot as plt
+import numpy as np
 
-with open("out.txt", "r") as f:
-    pattern_epoch_loss = r"Epoch number 50 loss : (\d+\.\d+)"
-    pattern_pp = r"Average red vs blue power projection: (\d+\.\d+)"
-    pattern_win_rate = r"Win rate : (\d+\.\d+) \| Lose rate : (\d+\.\d+) \| Draw rate : (\d+\.\d+)"
+pp_values = []
+episode_id = []
 
-    match = re.search(pattern_epoch_loss, epoch_loss)
+with open("log.txt", "r") as f:
+    pattern_pp = r"Avg projection power at episode (\d+): (\d+\.\d+)"
+    for line in f.readlines():
+        match = re.search(pattern_pp, line.rstrip())
 
-    if match:
-        loss_value = match.group(1)
-        print("Loss value:", loss_value)
+        if match:
+            episode = match.group(1)
+            projection_power = match.group(2)
+            print("Episode:", episode)
+            print("Projection power:", projection_power)
+
+            episode_id.append(int(episode))
+            pp_values.append(float(projection_power))
+
+print(len(pp_values))
+pp_values = np.array(pp_values)
+episode_id = np.array(episode_id, dtype=np.int64)
+
+plt.plot(episode_id, pp_values)
+plt.title("DQN + CrossQ: Power projection value (lower=better, save best)")
+plt.xlabel("Episode #")
+plt.ylabel("Power projection")
+
+plt.savefig("test.png")

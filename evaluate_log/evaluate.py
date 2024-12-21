@@ -34,25 +34,12 @@ print(len(rates))
 pp_values = np.array(pp_values)
 rates = np.array(rates)[:30, 0]
 
-fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+plt.plot(pp_values[:30])
+plt.title("DQN: Power projection value (lower=better, save best)")
+plt.xlabel("Episode #")
+plt.ylabel("Power projection")
 
-axes[0].plot(ep_losses)
-axes[0].set_title("Epoch losses (plot every 50 epoch)")
-axes[0].set_xlabel("Step")
-
-axes[1].plot(pp_values[:30])
-axes[1].set_title("Power projection value (lower=better)")
-axes[1].set_xlabel("Episode #")
-axes[1].set_ylabel("Power projection")
-
-axes[2].plot(rates)
-axes[2].set_title("Blue win rate")
-axes[2].set_xlabel("Episode #")
-axes[2].set_ylabel("Win rate (%)")
-
-fig.suptitle("DQN cumulative training result")
-
-fig.savefig("test.png")
+plt.savefig("test.png")
 
 plt.clf()
 plt.close()
