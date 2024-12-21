@@ -16,11 +16,13 @@ class QNetwork(nn.Module):
         flatten_dim = dummy_output.view(-1).shape[0]
         self.network = nn.Sequential(
             nn.Linear(flatten_dim, 120),
+            # nn.LayerNorm(120),
             nn.ReLU(),
             nn.Linear(120, 84),
-            nn.ReLU(),
-            nn.Linear(84, action_shape),
+            # nn.LayerNorm(84),
+            nn.Tanh(),
         )
+        self.last_layer = nn.Linear(84, action_shape)
 
     def forward(self, x):
         assert len(x.shape) >= 3, "only support magent input observation"
@@ -30,4 +32,6 @@ class QNetwork(nn.Module):
         else:
             batchsize = x.shape[0]
         x = x.reshape(batchsize, -1)
-        return self.network(x)
+        x = self.network(x)
+        self.last_latent = x
+        return self.last_layer(x)

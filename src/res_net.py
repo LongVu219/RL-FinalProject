@@ -16,4 +16,3 @@ class ResBlock(nn.Module):
         )
     def forward(self, x): 
         return x + self.main(x) 
-    
