@@ -4,8 +4,8 @@
 
 # Train the model
 
-```python src/train.py```
+```python train.py```
 
 # Eval the model
 
-```python src/eval.py```
+```python eval.py```
