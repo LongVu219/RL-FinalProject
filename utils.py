@@ -30,3 +30,5 @@ def get_action(enviroment, episode: int, agent, observation: np.ndarray, network
         with torch.no_grad():
             q_values = network(observation)
         return torch.argmax(q_values, dim=1).detach().cpu().numpy()[0]
+
+
