@@ -14,7 +14,7 @@ device = 'cuda'
 def train_1_epoch(num, dataloader, model, optimizer, lr, loss_fn):
 
     debug = False
-    if (num%100 == 0): debug = True
+    if (num%50 == 0): debug = True
     total_loss = 0
     for id, (X, y) in enumerate(dataloader):
         model.train()
@@ -37,7 +37,7 @@ def train_1_epoch(num, dataloader, model, optimizer, lr, loss_fn):
 def train_model(num_epoch, dataloader, model, optimzer, lr, loss_fn):
     current_loss = 100
     total_epoch = 0
-    while(current_loss > 0.05 and total_epoch < 300):
+    while(current_loss > 0.005 and total_epoch < 500):
         for epoch in range(1, num_epoch + 1):
             current_loss = train_1_epoch(epoch, dataloader, model, optimzer, lr, loss_fn)
         

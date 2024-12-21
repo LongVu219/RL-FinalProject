@@ -14,24 +14,12 @@ frames = []
 
 
 # pretrained policies
-import base_model
-import resnet
-import torch
+from base_model import *
+from train_episode import *
 
 device = 'cuda'
-blue_agent = resnet.QNetwork(
-    demo_env.observation_space("blue_0").shape, demo_env.action_space("blue_0").n
-).to(device)
-blue_agent.load_state_dict(
-    torch.load("model/agent_kamikaze.pth", weights_only=True, map_location="cuda")
-)
-
-red_agent = base_model.QNetwork(
-    demo_env.observation_space("red_0").shape, demo_env.action_space("red_0").n
-).to(device)
-red_agent.load_state_dict(
-    torch.load("model/red.pt", weights_only=True, map_location=device)
-)
+blue_agent = get_agent('model/agent_base_final_kamikaze.pth', Resnet)
+red_agent = get_agent('model/red.pt', QNetwork_final)
 
 red_cnt = 81
 blue_cnt = 81
@@ -44,7 +32,7 @@ for agent in demo_env.agent_iter():
     
     agent_handle = agent.split("_")[0]
 
-    if (reward >= 4.5):
+    if (reward >= 4.2):
         if (agent_handle == 'blue'): red_cnt -= 1
         else: blue_cnt -= 1
 
@@ -57,9 +45,8 @@ for agent in demo_env.agent_iter():
             action = get_action(demo_env, None, agent, observation, red_agent, 'best')
     
     demo_env.step(action)
-    if (step == 162):
+    if (step%162 == 0):
         frames.append(demo_env.render())
-        step = 0
     step += 1
 
 print(red_cnt, blue_cnt)

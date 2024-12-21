@@ -8,16 +8,26 @@ import sys
 from torch.utils.data import DataLoader, TensorDataset
 import time
 from utils import *
-import base_model
-import resnet 
+from base_model import *
 import torch
 from train_net import *
 from evaluate_fight import *
 
+def get_agent(agent_path, agent_type):
+    get_env = env = battle_v4.env(map_size=45, max_cycles=300)
+    get_env.reset()
+    agent = agent_type(
+        get_env.observation_space("red_0").shape, get_env.action_space("red_0").n
+    ).to(device)
+    if (agent_path is not None):
+        agent.load_state_dict(
+            torch.load(agent_path, weights_only=True, map_location=device)
+        )
+    return agent
 
-def train_agent(red_path, blue_path, save_path, train_red = False, train_blue = True, episodes = 30):
+def train_agent(red_agent, blue_agent, save_path, use_red = True, train_red=False, train_blue=True, episodes = 30, selfplay = False):
     env = battle_v4.env(map_size=45, minimap_mode=False, step_reward=-0.005,
-    dead_penalty=-1, attack_penalty=-0.1, attack_opponent_reward=1.5,
+    dead_penalty=-0.5, attack_penalty=-0.1, attack_opponent_reward=0.5,
     max_cycles=300, extra_features=False, render_mode = "rgb_array")
     num_agent = 162
     env.reset()
@@ -28,26 +38,10 @@ def train_agent(red_path, blue_path, save_path, train_red = False, train_blue = 
     loss_function = nn.MSELoss()
 
     #config red
-    red_agent = base_model.QNetwork(
-        env.observation_space("red_0").shape, env.action_space("red_0").n
-    ).to(device)
-    if (red_path is not None):
-        red_agent.load_state_dict(
-            torch.load(red_path, weights_only=True, map_location=device)
-        )
-    if (train_red):
-        red_optimizer = optim.Adam(red_agent.parameters(), lr=lr)
+    red_optimizer = optim.Adam(red_agent.parameters(), lr=lr)
 
     #config blue
-    blue_agent = resnet.QNetwork(
-        env.observation_space("blue_0").shape, env.action_space("blue_0").n
-    ).to(device)
-    if (blue_path is not None):
-        blue_path.load_state_dict(
-            torch.load(blue_path, weights_only=True, map_location=device)
-        )
-    if (train_blue):
-        blue_optimizer = optim.Adam(blue_agent.parameters(), lr=lr)
+    blue_optimizer = optim.Adam(blue_agent.parameters(), lr=lr)
     
     best_score = 100
     for episode in range (1, episodes + 1):
@@ -87,8 +81,7 @@ def train_agent(red_path, blue_path, save_path, train_red = False, train_blue = 
             state_array = buffer[agent]
             agent_handle = agent.split("_")[0]
             
-            if (train_red == False and agent_handle == 'red' and episode != 30): continue
-            if (train_blue == False and agent_handle == 'blue'): continue
+            if (agent_handle == 'red' and use_red == False): continue
 
             for i in range(0, len(state_array)):
                 agent, observation, action, prv_reward, termination, truncation, info = state_array[i]
@@ -107,7 +100,6 @@ def train_agent(red_path, blue_path, save_path, train_red = False, train_blue = 
                     tmp[action] = reward + next_max
                     X.append(observation.squeeze(dim = 0))
                     y.append(tmp)
-
 
         X_tensor = torch.stack(X)
         y_tensor = torch.stack(y)
@@ -129,8 +121,24 @@ def train_agent(red_path, blue_path, save_path, train_red = False, train_blue = 
                 print()
                 best_score = avg
             
+            torch.save(blue_agent.state_dict(), 'model/newest.pth')
 
     print(best_score)
     env.close()
 
-    
+def selfplay(red_agent, blue_agent, save_path, episodes = 10):
+    best_score = 100
+    for episode in range (1, episodes + 1):
+        print(f'/\/\/\/\/\/\/\/\/ selfplay round number {episode} /\/\/\/\/\/\/\/\/')
+        train_agent(red_agent, blue_agent, save_path, 
+                    train_red=True, train_blue=False, episodes=1, selfplay=True)
+        train_agent(red_agent, blue_agent, save_path, 
+                    train_red=False, train_blue=True, episodes=1, selfplay=True)
+
+        eva_agent = get_agent('model/red_final.pt', QNetwork_final)
+        avg = evaluate(red_agent=eva_agent, blue_agent=blue_agent, rounds=3, debug = True)
+        if (avg < best_score):
+            torch.save(blue_agent.state_dict(), save_path)
+            print('Agent saved !')
+            print()
+            best_score = avg

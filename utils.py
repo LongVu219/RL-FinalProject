@@ -24,7 +24,7 @@ def get_action(envir, episode, agent, observation, network : nn.Module, policy :
 
     #define eps-greedy params here
     if (policy == 'epsilon'):
-        eps = max(0.8, 1.0 - episode/30)
+        eps = max(0.5, 1 - episode/30)
         rd = random.random()
         if (rd < eps): 
             return envir.action_space(agent).sample()
