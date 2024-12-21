@@ -24,7 +24,7 @@ device = "cuda"
 epsilon_min = 0.1
 path_blue = "../pretrained_model/blue.pth"
 path_red = "../pretrained_model/red.pth"
-log_path = "./log.txt"
+log_path = "../log.txt"
 
 trainer = Trainer(
     enviroment = enviroment, 

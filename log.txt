@@ -1,0 +1,20 @@
+Episode 1/15, Blue Reward: -510.24499686807394, Red Reward: -511.15499656740576, Blue Loss: 0.0022, Red Loss: 0.0010, Epsilon: 1.00 
+Avg projection power at episode 1: 0.041814420803782504 
+Episode 2/15, Blue Reward: -24.810014435090125, Red Reward: -158.79000280983746, Blue Loss: 0.0106, Red Loss: 0.0015, Epsilon: 0.86 
+Avg projection power at episode 2: 51.833333333333336 
+Episode 3/15, Blue Reward: 55.21999159920961, Red Reward: 196.47997967805713, Blue Loss: 0.0362, Red Loss: 0.0128, Epsilon: 0.74 
+Avg projection power at episode 3: 28.777777777777782 
+Episode 4/15, Blue Reward: 228.55997595749795, Red Reward: 7.584995063021779, Blue Loss: 0.0338, Red Loss: 0.0243, Epsilon: 0.63 
+Avg projection power at episode 4: 0.3947550034506557 
+Episode 5/15, Blue Reward: 267.4299747906625, Red Reward: -44.36000039521605, Blue Loss: 0.0172, Red Loss: 0.0386, Epsilon: 0.54 
+Avg projection power at episode 5: 12.277777777777777 
+Episode 6/15, Blue Reward: 295.6949747009203, Red Reward: -53.12000019103289, Blue Loss: 0.0193, Red Loss: 0.0838, Epsilon: 0.46 
+Avg projection power at episode 6: 7.633333333333333 
+Episode 7/15, Blue Reward: 197.66997432988137, Red Reward: -71.8000024529174, Blue Loss: 0.0494, Red Loss: 0.2746, Epsilon: 0.40 
+Avg projection power at episode 7: 12.933333333333332 
+Episode 8/15, Blue Reward: 205.27497515361756, Red Reward: -112.77499948069453, Blue Loss: 0.0428, Red Loss: 0.2184, Epsilon: 0.34 
+Avg projection power at episode 8: 6.261363636363637 
+Episode 9/15, Blue Reward: 210.67497529741377, Red Reward: -133.6549990363419, Blue Loss: 0.0376, Red Loss: 0.1984, Epsilon: 0.29 
+Avg projection power at episode 9: 2.0791580400276053 
+Episode 10/15, Blue Reward: 180.5149757741019, Red Reward: -103.88000085670501, Blue Loss: 0.0520, Red Loss: 0.1830, Epsilon: 0.25 
+Avg projection power at episode 10: 4.171637426900586 
