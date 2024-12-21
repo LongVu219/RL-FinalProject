@@ -1,4 +1,0 @@
-git+https://github.com/Farama-Foundation/MAgent2
-opencv-python
-torch
-numpy
