@@ -46,7 +46,7 @@ def play_one_game(red_agent, blue_agent, policy):
 
 def evaluate(red_agent, blue_agent, policy, rounds, debug = False):
     red_agent = base_model.QNetwork((13, 13, 5), (21)).to(device)
-    red_agent.load_state_dict(torch.load("/mnt/apple/k66/hanh/cross_q/pretrained_model/red.pt"))
+    red_agent.load_state_dict(torch.load("../pretrained_model/red.pt"))
     if (debug == True):
         print('==================Evaluating agent vs agent=========================')
     avg = 0

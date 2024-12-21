@@ -22,9 +22,9 @@ update_target_steps= 10
 tau = 0.1
 device = "cuda" 
 epsilon_min = 0.1
-path_blue = "/mnt/apple/k66/hanh/cross_q/pretrained_model/blue.pth"
-path_red = "/mnt/apple/k66/hanh/cross_q/pretrained_model/red.pth"
-log_path = "/mnt/apple/k66/hanh/cross_q/log.txt"
+path_blue = "../pretrained_model/blue.pth"
+path_red = "../pretrained_model/red.pth"
+log_path = "./log.txt"
 
 trainer = Trainer(
     enviroment = enviroment, 

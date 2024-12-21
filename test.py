@@ -5,8 +5,6 @@ from res_net import ResBlock
 from magent2.environments import battle_v4 
 from utils import *  
 from tqdm import tqdm 
-import os 
-import cv2 
 
 
 device = 'cuda'
@@ -99,64 +97,75 @@ class FinalQNetwork(nn.Module):
     
 
 final_model = FinalQNetwork((13, 13, 5), (21)).to("cuda") 
-final_model.load_state_dict(torch.load("/mnt/apple/k66/hanh/cross_q/pretrained_model/red_final.pt")) 
+final_model.load_state_dict(torch.load("../pretrained_model/red_final.pt")) 
 
 base_model_red = BaseQNetwork((13, 13, 5), (21)).to("cuda") 
-base_model_red.load_state_dict(torch.load("/mnt/apple/k66/hanh/cross_q/pretrained_model/red.pt"))
+base_model_red.load_state_dict(torch.load("../pretrained_model/red.pt"))
 
 my_model = CrossQNetwork((13, 13, 5), (21)).to("cuda") 
-my_model.load_state_dict(torch.load("/mnt/apple/k66/hanh/cross_q/pretrained_model/blue.pth")) 
+my_model.load_state_dict(torch.load("../pretrained_model/blue.pth")) 
 
-demo_env = battle_v4.env(map_size=45, max_cycles=300, render_mode="rgb_array")
-demo_env.reset()
-vid_dir = "video"
-os.makedirs(vid_dir, exist_ok=True)
-fps = 24
-frames = []
 
-red_cnt = 81
-blue_cnt = 81
-mem = {}
-step = 0
+def eval(red, blue, red_policy, blue_policy, episodes): 
+    env = battle_v4.env(map_size=45, max_cycles=300)
+    env.reset()
 
-for agent in demo_env.agent_iter():
+    red_win, blue_win = [], [] 
+    red_tot_rw, blue_tot_rw = [], []
+    n_agent_each_team = len(env.env.action_spaces) // 2
 
-    observation, reward, termination, truncation, info = demo_env.last()
+    for _ in tqdm(range(episodes)):
+        env.reset()
+        n_kill = {"red": 0, "blue": 0}
+        red_reward, blue_reward = 0, 0
+
+        for agent in env.agent_iter():
+            observation, reward, termination, truncation, info = env.last()
+            agent_team = agent.split("_")[0]
+
+            n_kill[agent_team] += (
+                reward > 4.5
+            )  # This assumes default reward settups
+            if agent_team == "red":
+                red_reward += reward
+            else:
+                blue_reward += reward
+
+            if termination or truncation:
+                action = None  # this agent has died
+            else:
+                if agent_team == "red":
+                    action = get_action(env, None, agent, observation, red, red_policy)
+                else:
+                    action = get_action(env, None, agent, observation, blue, blue_policy)
+
+            env.step(action)
+
+        who_wins = "red" if n_kill["red"] >= n_kill["blue"] + 5 else "draw"
+        who_wins = "blue" if n_kill["red"] + 5 <= n_kill["blue"] else who_wins
+        red_win.append(who_wins == "red")
+        blue_win.append(who_wins == "blue")
+
+        red_tot_rw.append(red_reward / n_agent_each_team)
+        blue_tot_rw.append(blue_reward / n_agent_each_team)
+
+    return {
+        "winrate_red": np.mean(red_win),
+        "winrate_blue": np.mean(blue_win),
+        "average_rewards_red": np.mean(red_tot_rw),
+        "average_rewards_blue": np.mean(blue_tot_rw),
+    }
+
+
+
+if __name__ == "__main__": 
+    print("----------------Play with red.pt------------------ \n")
+    print(eval(red=base_model_red, blue=my_model, red_policy="best", blue_policy="best", episodes=100))
+    print("----------------Play with final_red.pt------------------ \n")
+    print(eval(red=final_model, blue=my_model, red_policy="best", blue_policy="best", episodes=100))
+
+
+
+
     
-    agent_handle = agent.split("_")[0]
-
-    if (reward >= 4.5):
-        if (agent_handle == 'blue'): red_cnt -= 1
-        else: blue_cnt -= 1
-
-    if termination or truncation:
-        action = None  # this agent has died
-    else:
-        if agent_handle == "blue":
-            action = get_action(demo_env, None, agent, observation, my_model, 'best')
-        else:
-            action = get_action(demo_env, None, agent, observation, final_model, 'best')
     
-    demo_env.step(action)
-    if (step == 162):
-        frames.append(demo_env.render())
-        # print(demo_env.render())
-        step = 0
-    step += 1
-
-print(red_cnt, blue_cnt)
-
-height, width, _ = frames[0].shape
-out = cv2.VideoWriter(
-    os.path.join(vid_dir, f"battle_vs_best.mp4"),
-    cv2.VideoWriter_fourcc(*"mp4v"),
-    fps,
-    (width, height),
-)
-for frame in frames:
-    frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-    out.write(frame_bgr)
-out.release()
-print("Done recording battle !!!")
-
-demo_env.close()
