@@ -18,15 +18,22 @@ The left one is the demo against random agent, the right one is the demo against
 This DQN agent has no troubles against first agent but somehow struggle against the second agent :(((
 
 ## Installation
-clone this repo and install with
+Clone this repo and install with
 ```
 pip install -r requirements.txt
 ```
 
 ## Training
-to train best model : python train_agent.py the model will have name “agent_kamikaze.pth”
+To train best model run : 
+```
+python train_agent.py
+```
+The model will have name “agent_kamikaze.pth”
 ## Evaluation
-to eval best model : python eval.py
+to eval the best model run : 
+'''
+python eval.py
+'''
 ## File description
 demo.py : use to make a demo for given agent
 evaluate_fight.py : play one game and print the result
