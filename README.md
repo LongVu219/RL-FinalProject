@@ -25,7 +25,7 @@ To train best model run :
 ```
 python train.py
 ```
-The model will have name “agent_kamikaze.pth” and the log will be saved at “log.txt”
+The model will have name “blue_cross.pth” and the log will be saved at “log.txt”
 ## Evaluation
 to eval the best model run : 
 ```
