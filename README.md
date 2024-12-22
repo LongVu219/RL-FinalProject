@@ -32,10 +32,10 @@ to eval the best model run :
 python eval.py
 ```
 ## File description
-eval.py: evaluate function used in training phase 
-data.py: set up buffer and create dataloader
-test.py: evaluate the win rate of blue and red agent after training 
-utils.py : some auxiliary functions that control the agent
+eval.py: evaluate function used in training phase <br>
+data.py: set up buffer and create dataloader <br>
+test.py: evaluate the win rate of blue and red agent after training <br>
+utils.py : some auxiliary functions that control the agent <br>
 train.py: you can set up some config for enviroment, call function train from Trainer to run cross_q algorithm 
 
 
