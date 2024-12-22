@@ -17,9 +17,7 @@ Your agent's performance should be evaluated based on reward and win rate agains
     </video>
 </p>
 
-This branch is our code for DQN agent (all form).
-The left one is the demo against random agent, the right one is the demo against pretrained agent.
-This DQN agent has no troubles against first agent but somehow struggle against the second agent :(((
+This branch is our code for DQN+CrossQ agent (all form).
 
 ## Installation
 Clone this repo and install with
