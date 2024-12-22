@@ -9,7 +9,7 @@ In this final project, you will develop and train a reinforcement learning (RL) 
 Your agent's performance should be evaluated based on reward and win rate against each of these models. You should control *blue* agents when evaluating.
 
 
-[![Watch the video](https://raw.githubusercontent.com/username/repository/branch/path/to/thumbnail.jpg)](https://raw.githubusercontent.com/LongVu219/RL-FinalProject/hanh-crossq/video//cross_vs_red.mp4)
+[![Watch the video](https://raw.githubusercontent.com/username/repository/branch/path/to/thumbnail.jpg)](https://raw.githubusercontent.com/LongVu219/RL-FinalProject/hanh-crossq/video/cross_vs_red.mp4)
 
 This branch is our code for DQN+CrossQ agent (all form).
 
