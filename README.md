@@ -14,6 +14,7 @@ Your agent's performance should be evaluated based on reward and win rate agains
   <img src="video/demo_best.gif" width="300" alt="battle vs pretrained agent" />
 </p>
 
+This branch is our code for DQN agent (all form).
 The left one is the demo against random agent, the right one is the demo against pretrained agent.
 This DQN agent has no troubles against first agent but somehow struggle against the second agent :(((
 
