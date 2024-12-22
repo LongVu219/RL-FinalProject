@@ -10,7 +10,7 @@ Your agent's performance should be evaluated based on reward and win rate agains
 
 <p align="center">
   <img src="video/cross_vs_red.gif" width="300" alt="battle vs pretrained-1 agent" />
-  <img src="video/cross_vs_fianal.gif" width="300" alt="battle vs final-pretrained agent" />
+  <img src="video/cross_vs_final.gif" width="300" alt="battle vs final-pretrained agent" />
 </p>
 This branch is our code for DQN+CrossQ agent (all form).
 
