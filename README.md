@@ -10,8 +10,8 @@ Your agent's performance should be evaluated based on reward and win rate agains
 
 
 <p align="center">
-  <img src="video/battle_vs_random.gif" width="300" alt="battle vs random agent" />
-  <img src="video/demo_best.gif" width="300" alt="battle vs pretrained agent" />
+  <img src="video/cross_vs_red.mp4" width="300" alt="battle vs red agent" />
+  <img src="video/cross_vs_fina.mp4" width="300" alt="battle vs red_final agent" />
 </p>
 
 This branch is our code for DQN agent (all form).
