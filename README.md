@@ -10,8 +10,11 @@ Your agent's performance should be evaluated based on reward and win rate agains
 
 
 <p align="center">
-  <img src="video/cross_vs_red.mp4" width="300" alt="battle vs red agent" />
-  <img src="video/cross_vs_fina.mp4" width="300" alt="battle vs red_final agent" />
+    <video width="320" height="240" controls>
+        <source src="video/cross_vs_red.mp4" type="video/mp4" alt="battle vs red agent">
+        <source src="video/cross_vs_fina.mp4" type="video/ogg" alt="battle vs red_final agent">
+        Your browser does not support the video tag.
+    </video>
 </p>
 
 This branch is our code for DQN agent (all form).
