@@ -32,11 +32,11 @@ to eval the best model run :
 python eval.py
 ```
 ## File description
-demo.py : use to make a demo for given agent.  
-evaluate_fight.py : play one game and print the result.  
-train_episode.py : extract the data from env and train for 1 episode.  
-train_net.py : use the extracted data from train_episode to train_net for about 300 epochs.  
-utils.py : some auxiliary functions that control the agent (policy, reward, …..).  
+eval.py: evaluate function used in training phase 
+data.py: set up buffer and create dataloader
+test.py: evaluate the win rate of blue and red agent after training 
+utils.py : some auxiliary functions that control the agent
+train.py: you can set up some config for enviroment, call function train from Trainer to run cross_q algorithm 
 
 
 ## References
